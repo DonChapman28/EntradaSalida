@@ -1,0 +1,27 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Inicio
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Inicio</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div id="container">
+    <ion-card>
+      <ion-item>
+        <ion-button [routerLink]="['/entrada']">Entrada</ion-button>
+      </ion-item>
+      <br>
+      <ion-item>
+        <ion-button [routerLink]="['/registro']">Registros</ion-button>
+      </ion-item>
+    </ion-card>
+  </div>
+</ion-content>

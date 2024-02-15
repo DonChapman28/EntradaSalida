@@ -8,21 +8,15 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">entrada</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <div id="container">
-    <ion-card>
-      <ion-item>
-        <ion-button [routerLink]="['/entrada']">Entrada</ion-button>
-      </ion-item>
-      <br>
-      <ion-item>
-        <ion-button [routerLink]="['/registro']">Registros</ion-button>
-      </ion-item>
-    </ion-card>
-  </div>
+  <video class="ion-text-center" id="video"></video>
+  
+<div>
+  <ion-button (click)="iniciarCamara()">Entrada</ion-button>
+  <ion-button (click)="iniciarCamara()">Salida</ion-button>  
+</div>  
+
+<ion-text color="primary">
+<h1 class="ion-text-center"></h1>
+</ion-text>
 </ion-content>

@@ -5,7 +5,8 @@ import { ToastController } from '@ionic/angular';
 import { BrowserQRCodeReader, Result, VideoInputDevice } from '@zxing/library';
 import { Router } from '@angular/router';
 import { ServicioFechaHoraService } from '../fechaHora/servicio-fecha-hora.service';
-
+import { Storage } from '@ionic/storage-angular';
+import { StorageService } from '../servicioStorage/storage.service';
 
 @Component({
   selector: 'app-entrada',
@@ -31,6 +32,7 @@ export class EntradaPage implements OnInit {
     private alertController: AlertController,
     private toastController: ToastController,
     private fechaHora: ServicioFechaHoraService,
+    private storage: StorageService
    ) { this.codeReader = new BrowserQRCodeReader();
     this.selectedDevice = null;}
 
@@ -38,6 +40,8 @@ export class EntradaPage implements OnInit {
     console.log(this.fechaHora.getFechaHora());
     console.log(this.entrada);
     this.fechaEntrada = this.fechaHora.getFechaHora();
+    this.storage.init
+    
   }
 
   async iniciarCamara() {
@@ -58,8 +62,10 @@ export class EntradaPage implements OnInit {
           codeReader.decodeFromInputVideoDevice(selectedDevice.deviceId).then((result: Result) => {
             this.carnet = result.getText();
             const datos = {'usuario: ': this.carnet,
-            'entrada: ': this.fechaEntrada}
+            'entrada: ': this.fechaEntrada,
+            'salida': this. fechaSalida = null}
             console.log(datos)
+            this.storage.setRegistro(this.carnet,this.fechaEntrada,this.fechaSalida )
             console.log('enviado');
           });
           

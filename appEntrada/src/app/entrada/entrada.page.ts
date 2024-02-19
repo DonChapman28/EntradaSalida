@@ -6,6 +6,7 @@ import { BrowserQRCodeReader, Result, VideoInputDevice } from '@zxing/library';
 import { Router } from '@angular/router';
 import { ServicioFechaHoraService } from '../fechaHora/servicio-fecha-hora.service';
 
+
 @Component({
   selector: 'app-entrada',
   templateUrl: './entrada.page.html',
@@ -19,21 +20,24 @@ export class EntradaPage implements OnInit {
   private selectedDevice: VideoInputDevice | null;
   private scanning: boolean = false;
   private mediaStream: MediaStream | null = null;
-
   private continueScanning: boolean = true;
+
+  carnet: any;
+  fechaEntrada: any;
+  fechaSalida: any;
 
   constructor(private router: Router,
     private activated: ActivatedRoute,
     private alertController: AlertController,
     private toastController: ToastController,
-    private fechaHora: ServicioFechaHoraService) { this.codeReader = new BrowserQRCodeReader();
-      this.selectedDevice = null;}
+    private fechaHora: ServicioFechaHoraService,
+   ) { this.codeReader = new BrowserQRCodeReader();
+    this.selectedDevice = null;}
 
   ngOnInit() {
-    console.log(this.fechaHora.getFechaHora())
-    console.log(this.fechaHora.getFechaHora().fecha)
-    console.log(this.fechaHora.getFechaHora().hora)
-    console.log(this.entrada)
+    console.log(this.fechaHora.getFechaHora());
+    console.log(this.entrada);
+    this.fechaEntrada = this.fechaHora.getFechaHora();
   }
 
   async iniciarCamara() {
@@ -52,7 +56,10 @@ export class EntradaPage implements OnInit {
           const selectedDevice: VideoInputDevice = videoInputDevices[0];
   
           codeReader.decodeFromInputVideoDevice(selectedDevice.deviceId).then((result: Result) => {
-            /* console.log(result.getText()); */
+            this.carnet = result.getText();
+            const datos = {'usuario: ': this.carnet,
+            'entrada: ': this.fechaEntrada}
+            console.log(datos)
             console.log('enviado');
           });
           
@@ -71,6 +78,11 @@ export class EntradaPage implements OnInit {
     }
   }
 
+  
+    
+
+ 
+
   async mostrarAlerta() {
     const alert = await this.alertController.create({
       header: 'Registro exitoso',
@@ -84,7 +96,7 @@ export class EntradaPage implements OnInit {
   
   async mostrarError() {
     const alert = await this.alertController.create({
-      header: 'Seccion incorrecta',
+      header: 'error',
       buttons: this.alertButtons
     });
 

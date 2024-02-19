@@ -22,10 +22,12 @@ export class StorageService {
       entrada: entrada,
       salida: salida
     }
-    return(this.storage.set(user,data));
+    this.storage.set(user,data);
   }
 
   getRegistro(user: any){
     this.storage.get(user)
   } 
+
+
 }

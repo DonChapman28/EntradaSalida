@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { ServicioFechaHoraService } from '../fechaHora/servicio-fecha-hora.service';
 import { Storage } from '@ionic/storage-angular';
 import { StorageService } from '../servicioStorage/storage.service';
+import { RegistroApiService } from '../registroApi/registro-api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +33,9 @@ export class entradaService {
     private alertController: AlertController,
     private toastController: ToastController,
     private fechaHora: ServicioFechaHoraService,
-    private storage: StorageService) { this.codeReader = new BrowserQRCodeReader();
+    private storage: StorageService,
+    private api:RegistroApiService
+    ) { this.codeReader = new BrowserQRCodeReader();
     this.selectedDevice = null;}
 
     async entradaQr(){
@@ -92,6 +95,8 @@ export class entradaService {
             codeReader.decodeFromInputVideoDevice(selectedDevice.deviceId).then((result: Result) => {
               this.codigo = result.getText();
               this.storage.setRegistro(this.codigo,this.fechaSalida);
+              this.api.postRegistro(this.storage.setRegistro(this.codigo,this.fechaSalida))
+
               console.log('enviado');
             });
             

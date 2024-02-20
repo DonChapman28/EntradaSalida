@@ -41,8 +41,6 @@ export class entradaService {
       try {
         const constraints = { video: { facingMode: 'environment' } };
         const stream = await navigator.mediaDevices.getUserMedia(constraints);
-    
-    
         if (stream) {
           // Almacenamos el stream en la propiedad mediaStream
         this.mediaStream = stream;
@@ -83,7 +81,6 @@ export class entradaService {
       try {
         const constraints = { video: { facingMode: 'environment' } };
         const stream = await navigator.mediaDevices.getUserMedia(constraints);
-    
         if (stream) {
         this.mediaStream = stream;
           const codeReader = new BrowserQRCodeReader();

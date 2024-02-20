@@ -13,4 +13,11 @@
       <ion-title size="large">registro</ion-title>
     </ion-toolbar>
   </ion-header>
+  <!-- <ion-button>listar</ion-button> -->
+  <ion-item *ngFor="let persona of personas">
+
+    <ion-label>{{persona.clave}}</ion-label>
+    <ion-label>{{persona.valor.entrada}}</ion-label>
+    <ion-label>{{persona.valor.salida}}</ion-label>
+  </ion-item>
 </ion-content>

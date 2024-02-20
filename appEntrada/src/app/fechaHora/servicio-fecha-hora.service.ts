@@ -19,7 +19,7 @@ export class ServicioFechaHoraService {
     const minutos = ('0' + fechaActual.getMinutes()).slice(-2);
    
     const horaFormateada = `${('0' + hora).slice(-2)}:${('0' + minutos).slice(-2)}`;
-    const fechaHora = horaFormateada + '-' + fechaFormateada;
+    const fechaHora = horaFormateada + '   ' + fechaFormateada;
     return (fechaHora);
   }
   

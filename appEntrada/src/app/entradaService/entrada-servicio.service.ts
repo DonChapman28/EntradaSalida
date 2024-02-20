@@ -11,7 +11,7 @@ import { StorageService } from '../servicioStorage/storage.service';
 @Injectable({
   providedIn: 'root'
 })
-export class QrServicioService {
+export class entradaService {
 
   alertButtons = ['Aceptar'];
   private codeReader: BrowserQRCodeReader;
@@ -23,6 +23,7 @@ export class QrServicioService {
   codigo: any;
   fechaEntrada: any;
   fechaSalida: any;
+  
 
 
   constructor(private router: Router,
@@ -33,7 +34,8 @@ export class QrServicioService {
     private storage: StorageService) { this.codeReader = new BrowserQRCodeReader();
     this.selectedDevice = null;}
 
-    async entradaQr() {
+    async entradaQr(){
+      this.fechaEntrada = this.fechaHora.getFechaHora();
       try {
         const constraints = { video: { facingMode: 'environment' } };
         const stream = await navigator.mediaDevices.getUserMedia(constraints);
@@ -50,12 +52,48 @@ export class QrServicioService {
     
             codeReader.decodeFromInputVideoDevice(selectedDevice.deviceId).then((result: Result) => {
               this.codigo = result.getText();
-              const datos = {'usuario: ': this.codigo,
+              const datos = {'id: ':this.codigo,
               'entrada: ': this.fechaEntrada}
               console.log(datos)
-              this.storage.setRegistro(this.codigo,this.fechaEntrada,this.fechaSalida )
+              this.storage.saveRegistro(this.codigo,this.fechaEntrada)
               console.log('enviado');
               this.alertaEntrada();
+            });
+            
+            const video = document.getElementById('video') as HTMLVideoElement;
+            video.srcObject = stream;
+            video.play();
+            console.log('funciona');
+          } else {
+            console.error('No se encontraron dispositivos de video.');
+          }
+        } else {
+          console.error('No se pudo obtener acceso a la cámara.');
+        }
+      } catch (error) {
+        console.error('Error al iniciar la cámara:', error);
+      }
+    }
+
+    async salidaQr(){
+      this.fechaSalida = this.fechaHora.getFechaHora();
+      try {
+        const constraints = { video: { facingMode: 'environment' } };
+        const stream = await navigator.mediaDevices.getUserMedia(constraints);
+    
+        if (stream) {
+        this.mediaStream = stream;
+          const codeReader = new BrowserQRCodeReader();
+          const videoInputDevices: VideoInputDevice[] = await codeReader.getVideoInputDevices();
+    
+          if (videoInputDevices && videoInputDevices.length > 0) {
+            const selectedDevice: VideoInputDevice = videoInputDevices[0];
+    
+            codeReader.decodeFromInputVideoDevice(selectedDevice.deviceId).then((result: Result) => {
+              this.codigo = result.getText();
+              this.storage.setRegistro(this.codigo,this.fechaSalida);
+              console.log('enviado');
+              this.alertaSalida();
             });
             
             const video = document.getElementById('video') as HTMLVideoElement;
@@ -78,10 +116,18 @@ export class QrServicioService {
         header: 'Entrada Registrada',
         buttons: this.alertButtons
       });
-  
       await alert.present();
-   
-      
     }
-}
+
+    async alertaSalida() {
+      const alert = await this.alertController.create({
+        header: 'Salida Registrada',
+        buttons: this.alertButtons
+      });
+      await alert.present();
+    }
+
+    
+
+  }
 

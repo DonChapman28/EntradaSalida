@@ -21,10 +21,11 @@ export class RegistroPage implements OnInit {
     private storage: StorageService) { }
 
   ngOnInit() {
-    this.storage.getAllRegistro().then(x=> {this.personas = x; console.log(this.personas)});
-    console.log(this.personas);
+    this.storage.getAllRegistro().then(x=> {this.personas = x; console.log(this.personas);
+      
+        
+        
+    
+    });
   }
-
-  
-
 }

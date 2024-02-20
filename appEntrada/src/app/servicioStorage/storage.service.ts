@@ -28,10 +28,10 @@ export class StorageService {
     this._storage = storage
   }
 
-  saveRegistro(key: any, entrada: any){
+  saveRegistro(key: any, entrada: any,fecha: Date){
     const data = {
-      entrada: entrada
-
+      entrada: entrada,
+      fecha: fecha
     }
     this.storage.set(key,data);
   }
@@ -48,7 +48,7 @@ export class StorageService {
 
           // Guardar el registro actualizado en el almacenamiento con la misma clave proporcionada
           await this.storage.set(user, registro);
-
+          this.alertaSalida();
           console.log('Registro actualizado:', registro);
       } else {
         this.errorSalida();
@@ -69,12 +69,29 @@ export class StorageService {
     await this.storage.forEach((v, k) => { 
       listado.push({ clave: k, valor: v });
     });
+    listado.sort((a, b) => {
+      if (a.valor.fecha < b.valor.fecha) {
+        return 1;
+      } else if (a.valor.fecha > b.valor.fecha) {
+        return -1;
+      } else {
+        return 0;
+      }
+    });
     return listado;
   }
 
   async errorSalida() {
     const alert = await this.alertController.create({
       header: 'error salida',
+      buttons: this.alertButtons
+    });
+    await alert.present();
+  }
+
+  async alertaSalida() {
+    const alert = await this.alertController.create({
+      header: 'Salida Registrada',
       buttons: this.alertButtons
     });
     await alert.present();

@@ -23,6 +23,7 @@ export class entradaService {
   codigo: any;
   fechaEntrada: any;
   fechaSalida: any;
+  fechaRegistro: any;
   
 
 
@@ -36,6 +37,7 @@ export class entradaService {
 
     async entradaQr(){
       this.fechaEntrada = this.fechaHora.getFechaHora();
+      this.fechaRegistro = this.fechaHora.getFecha();
       try {
         const constraints = { video: { facingMode: 'environment' } };
         const stream = await navigator.mediaDevices.getUserMedia(constraints);
@@ -53,9 +55,10 @@ export class entradaService {
             codeReader.decodeFromInputVideoDevice(selectedDevice.deviceId).then((result: Result) => {
               this.codigo = result.getText();
               const datos = {'id: ':this.codigo,
-              'entrada: ': this.fechaEntrada}
+              'entrada: ': this.fechaEntrada,
+              'fecha: ': this.fechaRegistro}
               console.log(datos)
-              this.storage.saveRegistro(this.codigo,this.fechaEntrada)
+              this.storage.saveRegistro(this.codigo,this.fechaEntrada,this.fechaRegistro)
               console.log('enviado');
               this.alertaEntrada();
             });
@@ -93,7 +96,6 @@ export class entradaService {
               this.codigo = result.getText();
               this.storage.setRegistro(this.codigo,this.fechaSalida);
               console.log('enviado');
-              this.alertaSalida();
             });
             
             const video = document.getElementById('video') as HTMLVideoElement;
@@ -114,14 +116,6 @@ export class entradaService {
     async alertaEntrada() {
       const alert = await this.alertController.create({
         header: 'Entrada Registrada',
-        buttons: this.alertButtons
-      });
-      await alert.present();
-    }
-
-    async alertaSalida() {
-      const alert = await this.alertController.create({
-        header: 'Salida Registrada',
         buttons: this.alertButtons
       });
       await alert.present();

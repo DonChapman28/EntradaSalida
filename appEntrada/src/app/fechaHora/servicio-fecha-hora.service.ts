@@ -23,5 +23,11 @@ export class ServicioFechaHoraService {
     return (fechaHora);
   }
   
+  getFecha(){
+    const fechaActual = new Date();
+    //fecha completa para el registro
+    return (fechaActual);
+  }
+
 }
 

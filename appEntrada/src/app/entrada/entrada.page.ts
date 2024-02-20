@@ -8,6 +8,7 @@ import { ServicioFechaHoraService } from '../fechaHora/servicio-fecha-hora.servi
 import { Storage } from '@ionic/storage-angular';
 import { StorageService } from '../servicioStorage/storage.service';
 
+
 @Component({
   selector: 'app-entrada',
   templateUrl: './entrada.page.html',
@@ -23,7 +24,7 @@ export class EntradaPage implements OnInit {
   private mediaStream: MediaStream | null = null;
   private continueScanning: boolean = true;
 
-  carnet: any;
+  codigo: any;
   fechaEntrada: any;
   fechaSalida: any;
 
@@ -44,7 +45,7 @@ export class EntradaPage implements OnInit {
     
   }
 
-  async iniciarCamara() {
+  async entradaQr() {
     try {
       const constraints = { video: { facingMode: 'environment' } };
   const stream = await navigator.mediaDevices.getUserMedia(constraints);
@@ -60,13 +61,13 @@ export class EntradaPage implements OnInit {
           const selectedDevice: VideoInputDevice = videoInputDevices[0];
   
           codeReader.decodeFromInputVideoDevice(selectedDevice.deviceId).then((result: Result) => {
-            this.carnet = result.getText();
-            const datos = {'usuario: ': this.carnet,
-            'entrada: ': this.fechaEntrada,
-            'salida': this. fechaSalida = null}
+            this.codigo = result.getText();
+            const datos = {'usuario: ': this.codigo,
+            'entrada: ': this.fechaEntrada}
             console.log(datos)
-            this.storage.setRegistro(this.carnet,this.fechaEntrada,this.fechaSalida )
+            this.storage.setRegistro(this.codigo,this.fechaEntrada,this.fechaSalida )
             console.log('enviado');
+            this.alertaEntrada();
           });
           
           const video = document.getElementById('video') as HTMLVideoElement;
@@ -89,9 +90,9 @@ export class EntradaPage implements OnInit {
 
  
 
-  async mostrarAlerta() {
+  async alertaEntrada() {
     const alert = await this.alertController.create({
-      header: 'Registro exitoso',
+      header: 'Entrada Registrada',
       buttons: this.alertButtons
     });
 

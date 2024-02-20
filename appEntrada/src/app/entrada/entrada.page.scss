@@ -2,3 +2,15 @@
     width: 100%; 
     height: auto;
 } */
+
+#video {
+    width: 100%;
+    height: auto;
+}
+
+@media (min-width: 768px) { /* Ajusta este valor según el punto de interrupción que desees para "escritorio" */
+    #video {
+        width: 50%;
+        margin: 0 auto; /* Centra el video horizontalmente */
+    }
+}

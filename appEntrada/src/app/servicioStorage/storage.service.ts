@@ -47,9 +47,9 @@ export class StorageService {
           // Guardar el registro actualizado en el almacenamiento con la misma clave proporcionada
           await this.storage.set(user, registro);
           this.alertaSalida();
-          const data = {'rut ': registro.rut,
-                        'entrada ': registro.entrada,
-                        'salida ': registro.salida}
+          const data = {'rut': registro.rut,
+                        'entrada': registro.entrada,
+                        'salida': registro.salida}
           this.api.postRegistro(data).subscribe();
           this.storage.remove(registro.rut);
       } else {
@@ -82,6 +82,8 @@ export class StorageService {
     });
     return listado;
   }
+
+  
 
   async errorSalida() {
     const alert = await this.alertController.create({

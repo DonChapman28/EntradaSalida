@@ -10,8 +10,8 @@ export class RegistroApiService {
 
   constructor(private http: HttpClient) { }
 
-  getRegistro() {
-    const url = this.urlBaseAPI + '/registro'; 
+  getRegistro(id: string) {
+    const url = this.urlBaseAPI + '/registro?code=' + id; 
     return this.http.get(url);
   }
 
@@ -20,5 +20,6 @@ export class RegistroApiService {
     return this.http.post<any>(url, data);
   }  
 
+ 
 
 }

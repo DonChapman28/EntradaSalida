@@ -25,17 +25,15 @@ export class RegistroPage implements OnInit {
     private api: RegistroApiService) { }
 
   ngOnInit() {
-    /* this.storage.getAllRegistro().then(x=> {this.personas = x; console.log(this.personas);
-    }); */
+    
 
     this.activated.paramMap.subscribe(p => {
-      
-      //con esta wea hacemos que traiga los datos que pedimos anasheeeeeeeiiiiii
-      this.api.getRegistro().subscribe((registroData: any) => {
-        this.registros = registroData;
-        console.log(this.registros)
+      this.id = p.get('registro') ?? '';
+      //con esta wea hacemos que horario tenga los datos que pedimos desde la api anasheeeeeeeiiiiii
+      this.api.getRegistro(this.id).subscribe((horarioData: any) => {
+        this.registros = horarioData;
+        
       });
-
     });
    
     

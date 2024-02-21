@@ -55,13 +55,32 @@ export class entradaService {
     
             codeReader.decodeFromInputVideoDevice(selectedDevice.deviceId).then((result: Result) => {
               this.codigo = result.getText();
-              const datos = {'id: ':this.codigo,
-              'entrada: ': this.fechaEntrada,
-              'fecha: ': this.fechaRegistro}
-              console.log(datos)
-              this.storage.saveRegistro(this.codigo,this.fechaEntrada,this.fechaRegistro)
-              console.log('enviado');
-              this.alertaEntrada();
+              // URL proporcionada
+                var url = this.codigo;
+                // Expresión regular para extraer el número de RUT (o RUN)
+                var regex = /RUN=(\d+-[0-9Kk])/;
+                // Ejecutar la expresión regular en la URL
+                var match = url.match(regex);
+                // Verificar si se encontró el número de RUT (o RUN)
+                if (match) {
+                    // El número de RUT (o RUN) se encuentra en el primer grupo capturado
+                    var rut = match[1];
+                    this.codigo = rut;
+                    console.log("Número de RUT (o RUN):", rut);
+                    const datos = {'id: ':this.codigo,
+                    'rut: ': this.codigo,
+                    'entrada: ': this.fechaEntrada,
+                    'fecha: ': this.fechaRegistro}
+                    console.log(datos)
+                    this.storage.saveRegistro(this.codigo,this.codigo,this.fechaEntrada,this.fechaRegistro)
+                    console.log('enviado');
+                    this.alertaEntrada();
+                } else {
+                    console.log("Número de RUT (o RUN) no encontrado en la URL.");
+                    this.errorCarnet();
+                }
+
+              
             });
             
             const video = document.getElementById('video') as HTMLVideoElement;
@@ -94,10 +113,25 @@ export class entradaService {
     
             codeReader.decodeFromInputVideoDevice(selectedDevice.deviceId).then((result: Result) => {
               this.codigo = result.getText();
-              this.storage.setRegistro(this.codigo,this.fechaSalida);
-              this.api.postRegistro(this.storage.setRegistro(this.codigo,this.fechaSalida))
-
-              console.log('enviado');
+              // URL proporcionada
+              var url = this.codigo;
+              // Expresión regular para extraer el número de RUT (o RUN)
+              var regex = /RUN=(\d+-[0-9Kk])/;
+              // Ejecutar la expresión regular en la URL
+              var match = url.match(regex);
+              // Verificar si se encontró el número de RUT (o RUN)
+              if (match) {
+                  // El número de RUT (o RUN) se encuentra en el primer grupo capturado
+                  var rut = match[1];
+                  this.codigo = rut;
+                  console.log("Número de RUT (o RUN):", rut);
+                  this.storage.setRegistro(this.codigo,this.fechaSalida);
+                  console.log('enviado');
+                
+              }
+              else console.log("Número de RUT (o RUN) no encontrado en la URL.");
+              
+           
             });
             
             const video = document.getElementById('video') as HTMLVideoElement;
@@ -118,6 +152,14 @@ export class entradaService {
     async alertaEntrada() {
       const alert = await this.alertController.create({
         header: 'Entrada Registrada',
+        buttons: this.alertButtons
+      });
+      await alert.present();
+    }
+
+    async errorCarnet() {
+      const alert = await this.alertController.create({
+        header: 'Cedula de identidad invalida',
         buttons: this.alertButtons
       });
       await alert.present();

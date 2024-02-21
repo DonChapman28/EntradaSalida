@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
 import { AlertController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
+import { RegistroApiService } from '../registroApi/registro-api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,8 @@ export class StorageService {
 
   constructor(private storage: Storage,
     private alertController: AlertController,
-    private toastController: ToastController) {
+    private toastController: ToastController,
+    private api: RegistroApiService) {
     this.init();
   }
 
@@ -28,8 +30,9 @@ export class StorageService {
     this._storage = storage
   }
 
-  saveRegistro(key: any, entrada: any,fecha: Date){
+  saveRegistro(key: any,rut: any, entrada: any,fecha: Date){
     const data = {
+      rut: rut,
       entrada: entrada,
       fecha: fecha
     }
@@ -50,6 +53,7 @@ export class StorageService {
           await this.storage.set(user, registro);
           this.alertaSalida();
           console.log('Registro actualizado:', registro);
+          this.api.postRegistro(registro);
       } else {
         this.errorSalida();
           console.log('No se encontró ningún registro con la clave proporcionada.');
@@ -59,9 +63,9 @@ export class StorageService {
  }
 }
 
-  getRegistro(user: any){
-    this.storage.get(user)
-    console.log(this.storage.get(user))
+  async getRegistro(user: any){
+    const data = await this.storage.get(user);
+    return data;
   } 
   
   async getAllRegistro() {

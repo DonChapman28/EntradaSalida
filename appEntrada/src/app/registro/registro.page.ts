@@ -23,9 +23,6 @@ export class RegistroPage implements OnInit {
   ngOnInit() {
     this.storage.getAllRegistro().then(x=> {this.personas = x; console.log(this.personas);
       
-        
-        
-    
     });
   }
 }

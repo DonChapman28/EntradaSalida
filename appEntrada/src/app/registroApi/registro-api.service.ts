@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class RegistroApiService {
-  private urlBaseAPI = 'https://registroentradasalida.onrender.com/registro';
+  private urlBaseAPI = 'https://registroentradasalida.onrender.com';
   
 
   constructor(private http: HttpClient) { }
@@ -16,7 +16,7 @@ export class RegistroApiService {
   }
 
   postRegistro(data : any) {
-    const url = this.urlBaseAPI; 
+    const url = this.urlBaseAPI + '/registro'; 
     return this.http.post<any>(url, data);
   }  
 

@@ -17,7 +17,10 @@
   
 </div>  
 
-<ion-text color="primary">
-<h1 class="ion-text-center"></h1>
-</ion-text>
+  <ion-item *ngFor="let persona of personas">
+
+    <ion-label>{{ persona.valor.rut }}</ion-label>
+    <ion-label>{{ persona.valor.entrada }}</ion-label>
+    
+  </ion-item>
 </ion-content>

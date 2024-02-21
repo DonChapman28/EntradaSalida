@@ -23,7 +23,7 @@ export class EntradaPage implements OnInit {
   private scanning: boolean = false;
   private mediaStream: MediaStream | null = null;
   private continueScanning: boolean = true;
-
+  personas:any = [];
   codigo: any;
   fechaEntrada: any;
   fechaSalida: any;
@@ -43,6 +43,8 @@ export class EntradaPage implements OnInit {
     console.log(this.entrada);
     this.fechaEntrada = this.fechaHora.getFechaHora();
     this.storage.init
+    this.storage.getAllRegistro().then(x=> {this.personas = x; console.log(this.personas);
+    });
   }
 
   entradaPersona(){

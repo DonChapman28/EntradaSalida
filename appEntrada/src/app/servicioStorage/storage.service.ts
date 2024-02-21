@@ -41,19 +41,16 @@ export class StorageService {
   
   async setRegistro(user: any, salida: any){
     try{
-      // Obtener el registro existente del almacenamiento
       const registro = await this.storage.get(user);
-
-      // Verificar si el registro existe
       if (registro !== null) {
-          // Modificar el registro según sea necesario
           registro.salida = salida;
-
           // Guardar el registro actualizado en el almacenamiento con la misma clave proporcionada
           await this.storage.set(user, registro);
           this.alertaSalida();
-          console.log('Registro actualizado:', registro);
-          this.api.postRegistro(registro);
+          const data = {'rut ': registro.rut,
+                        'entrada ': registro.entrada,
+                        'salida ': registro.salida}
+          this.api.postRegistro(data).subscribe();
       } else {
         this.errorSalida();
           console.log('No se encontró ningún registro con la clave proporcionada.');

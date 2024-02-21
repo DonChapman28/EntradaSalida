@@ -51,6 +51,7 @@ export class StorageService {
                         'entrada ': registro.entrada,
                         'salida ': registro.salida}
           this.api.postRegistro(data).subscribe();
+          this.storage.remove(registro.rut);
       } else {
         this.errorSalida();
           console.log('No se encontró ningún registro con la clave proporcionada.');

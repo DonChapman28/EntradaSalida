@@ -14,10 +14,12 @@
     </ion-toolbar>
   </ion-header>
   <!-- <ion-button>listar</ion-button> -->
-  <ion-item *ngFor="let persona of personas">
+  <ion-item *ngFor="let registro of registros">
 
-    <ion-label>{{persona.clave}}</ion-label>
-    <ion-label>{{persona.valor.entrada}}</ion-label>
-    <ion-label>{{persona.valor.salida}}</ion-label>
+    <ion-label>{{registro.rut}}</ion-label>
+    <ion-label>{{registro.entrada}}</ion-label>
+    <ion-label>{{registro.salida}}</ion-label>
   </ion-item>
+
+ 
 </ion-content>

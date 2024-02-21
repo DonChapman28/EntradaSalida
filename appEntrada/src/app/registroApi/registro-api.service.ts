@@ -11,7 +11,7 @@ export class RegistroApiService {
   constructor(private http: HttpClient) { }
 
   getRegistro() {
-    const url = this.urlBaseAPI; 
+    const url = this.urlBaseAPI + '/registro'; 
     return this.http.get(url);
   }
 

@@ -54,12 +54,31 @@ export class PdfReaderService {
             codeReader.decodeFromInputVideoDevice(selectedDevice.deviceId).then((result: Result) => {
               this.codigo = result.getText();
               console.log(this.codigo);   
+                var url = this.codigo;
+                // Expresión regular para extraer el número de url
+                var regex = /<F>(.*?)<\/F>/;
+                // Ejecutar la expresión regular en la URL
+                var match = url.match(regex);
+                
+                if (match) {
+                    
+                    var number = match[1];
+                    this.codigo = number;
+                    console.log("Número de documento", number);
+                  
+                    console.log('enviado');
+                    
+                } else {
+                    console.log("Número de RUT (o RUN) no encontrado en la URL.");
+                    
+                }
             });
             
             const video = document.getElementById('video') as HTMLVideoElement;
             video.srcObject = stream;
             video.play();
             console.log('funciona');
+            
           } else {
             console.error('No se encontraron dispositivos de video.');
           }

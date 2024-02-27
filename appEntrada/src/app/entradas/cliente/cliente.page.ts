@@ -2,21 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
-import { BrowserQRCodeReader,Result, VideoInputDevice } from '@zxing/library';
+import { BrowserQRCodeReader,BrowserPDF417Reader, Result, VideoInputDevice } from '@zxing/library';
 import { Router } from '@angular/router';
-import { ServicioFechaHoraService } from '../fechaHora/servicio-fecha-hora.service';
+import { ServicioFechaHoraService } from 'src/app/fechaHora/servicio-fecha-hora.service';
 import { Storage } from '@ionic/storage-angular';
-import { StorageService } from '../servicioStorage/storage.service';
-import { entradaService } from '../entradaService/entrada-servicio.service';
-import { PdfReaderService } from '../entradaService/pdf-reader.service';
+import { StorageService } from 'src/app/servicioStorage/storage.service';
+import { entradaService } from 'src/app/entradaService/entrada-servicio.service';
 
 @Component({
-  selector: 'app-entrada',
-  templateUrl: './entrada.page.html',
-  styleUrls: ['./entrada.page.scss'],
+  selector: 'app-cliente',
+  templateUrl: './cliente.page.html',
+  styleUrls: ['./cliente.page.scss'],
 })
-export class EntradaPage implements OnInit {
-  
+export class ClientePage implements OnInit {
+
   alertButtons = ['Aceptar'];
   entrada : boolean = true;
 
@@ -31,8 +30,7 @@ export class EntradaPage implements OnInit {
     private toastController: ToastController,
     private fechaHora: ServicioFechaHoraService,
     private storage: StorageService,
-    private entradaService: entradaService,
-    private pdf417 : PdfReaderService
+    private entradaService: entradaService
    ) {}
 
   ngOnInit() {
@@ -45,7 +43,7 @@ export class EntradaPage implements OnInit {
   }
 
   entradaPersona(){
-    this.pdf417.escannerPdf417();
+    this.entradaService.entradaQr();
   }
 
   salidaPersona(){

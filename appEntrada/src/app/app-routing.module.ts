@@ -16,13 +16,22 @@ const routes: Routes = [
     loadChildren: () => import('./entrada/entrada.module').then( m => m.EntradaPageModule)
   },
   {
-    path: 'salida',
-    loadChildren: () => import('./salida/salida.module').then( m => m.SalidaPageModule)
-  },
-  {
     path: 'registro',
     loadChildren: () => import('./registro/registro.module').then( m => m.RegistroPageModule)
   },
+  {
+    path: 'cliente',
+    loadChildren: () => import('./entradas/cliente/cliente.module').then( m => m.ClientePageModule)
+  },
+  {
+    path: 'visita',
+    loadChildren: () => import('./entradas/visita/visita.module').then( m => m.VisitaPageModule)
+  },
+  {
+    path: 'proveedor',
+    loadChildren: () => import('./entradas/proveedor/proveedor.module').then( m => m.ProveedorPageModule)
+  },
+
 ];
 
 @NgModule({

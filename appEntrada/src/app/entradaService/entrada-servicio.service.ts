@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
-import { BrowserQRCodeReader, Result, VideoInputDevice } from '@zxing/library';
+import { BrowserQRCodeReader,BrowserPDF417Reader, Result, VideoInputDevice } from '@zxing/library';
 import { Router } from '@angular/router';
 import { ServicioFechaHoraService } from '../fechaHora/servicio-fecha-hora.service';
 import { Storage } from '@ionic/storage-angular';
@@ -25,8 +25,6 @@ export class entradaService {
   fechaEntrada: any;
   fechaSalida: any;
   fechaRegistro: any;
-  
-
 
   constructor(private router: Router,
     private activated: ActivatedRoute,
@@ -52,9 +50,9 @@ export class entradaService {
     
           if (videoInputDevices && videoInputDevices.length > 0) {
             const selectedDevice: VideoInputDevice = videoInputDevices[0];
-    
             codeReader.decodeFromInputVideoDevice(selectedDevice.deviceId).then((result: Result) => {
               this.codigo = result.getText();
+              console.log(this.codigo);
               // URL proporcionada
                 var url = this.codigo;
                 // Expresión regular para extraer el número de RUT (o RUN)
@@ -79,8 +77,6 @@ export class entradaService {
                     console.log("Número de RUT (o RUN) no encontrado en la URL.");
                     this.errorCarnet();
                 }
-
-              
             });
             
             const video = document.getElementById('video') as HTMLVideoElement;
@@ -130,9 +126,7 @@ export class entradaService {
                 
               }
               else console.log("Número de RUT (o RUN) no encontrado en la URL.");
-              
-           
-            });
+              });
             
             const video = document.getElementById('video') as HTMLVideoElement;
             video.srcObject = stream;
@@ -164,8 +158,5 @@ export class entradaService {
       });
       await alert.present();
     }
-
-    
-
   }
 

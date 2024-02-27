@@ -63,7 +63,7 @@ export class PdfReaderService {
                 if (match) {
                     
                     var number = match[1];
-                    this.codigo = number;
+                    this.codigo = number;       
                     console.log("Número de documento", number);
                   
                     console.log('enviado');

@@ -11,11 +11,18 @@
 
   <video class="ion-text-center" id="video"></video>
 
-<div>
-  <ion-button (click)="entradaPersona()">Entrada</ion-button>
-  <ion-button (click)="salidaPersona()">Salida</ion-button>  
-  
-</div>  
+
+<ion-card class="ion-text-center ion-padding">
+  <ion-row>
+    <ion-col size="6">
+      <ion-button (click)="entradaPersona()">Entrada</ion-button>
+    </ion-col>
+    <ion-col size="6">
+      <ion-button (click)="salidaPersona()">Salida</ion-button>  
+    </ion-col>
+  </ion-row>
+</ion-card>
+
 
   <ion-item *ngFor="let persona of personas">
 

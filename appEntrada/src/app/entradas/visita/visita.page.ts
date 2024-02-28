@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { ServicioFechaHoraService } from 'src/app/fechaHoraService/servicio-fecha-hora.service';
 import { StorageService } from 'src/app/storageService/storage.service';
 import { entradaService } from 'src/app/codeReaderService/qr-reader.service';
+import { DatosServiceService } from 'src/app/codeReaderService/datos-service.service';
 
 @Component({
   selector: 'app-visita',
@@ -27,14 +28,20 @@ export class VisitaPage implements OnInit {
     private toastController: ToastController,
     private fechaHora: ServicioFechaHoraService,
     private storage: StorageService,
-    private entradaService: entradaService) { }
+    private entradaService: entradaService,
+    private datos: DatosServiceService) { }
 
   ngOnInit() {console.log(this.fechaHora.getFechaHora());
     console.log(this.entrada);
     this.fechaEntrada = this.fechaHora.getFechaHora();
     this.storage.init
-    this.storage.getAllRegistro().then(x=> {this.personas = x; console.log(this.personas);
+    this.activated.paramMap.subscribe(p => {
+      this.datos.tipo = p.get('tipo') ?? '';
+      console.log(this.datos.tipo);
     });
+    this.storage.getRegistrosPorTipo(this.datos.tipo).then(x=> {this.personas = x; console.log(this.personas);
+    });
+    
   }
 
   entradaPersona(){

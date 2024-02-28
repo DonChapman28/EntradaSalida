@@ -12,7 +12,7 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'entrada',
+    path: 'entrada/:tipo',
     loadChildren: () => import('./entrada/entrada.module').then( m => m.EntradaPageModule)
   },
   {
@@ -20,15 +20,15 @@ const routes: Routes = [
     loadChildren: () => import('./registro/registro.module').then( m => m.RegistroPageModule)
   },
   {
-    path: 'cliente',
+    path: 'cliente/:tipo',
     loadChildren: () => import('./entradas/cliente/cliente.module').then( m => m.ClientePageModule)
   },
   {
-    path: 'visita',
+    path: 'visita/:tipo',
     loadChildren: () => import('./entradas/visita/visita.module').then( m => m.VisitaPageModule)
   },
   {
-    path: 'proveedor',
+    path: 'proveedor/:tipo',
     loadChildren: () => import('./entradas/proveedor/proveedor.module').then( m => m.ProveedorPageModule)
   },
 

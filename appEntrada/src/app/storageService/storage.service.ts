@@ -87,4 +87,26 @@ export class StorageService {
     return listado;
   }
 
+  async getRegistrosPorTipo(tipo: string) {
+    let listado: any[] = [];
+    await this.storage.forEach((v: any, k: string) => {
+      if (v.tipo === tipo) {
+        listado.push({ clave: k, valor: v });
+      }
+    });
+  
+    // Ordenar el listado por la fecha en orden descendente
+    listado.sort((a, b) => {
+      if (a.valor.fecha < b.valor.fecha) {
+        return 1;
+      } else if (a.valor.fecha > b.valor.fecha) {
+        return -1;
+      } else {
+        return 0;
+      }
+    });
+  
+    return listado;
+  }
+
 }

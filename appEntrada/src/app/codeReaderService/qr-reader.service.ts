@@ -9,6 +9,7 @@ import { Storage } from '@ionic/storage-angular';
 import { StorageService } from '../storageService/storage.service';
 import { RegistroApiService } from '../registroService/registro-api.service';
 import { AlertService } from '../alertaService/alert.service';
+import { DatosServiceService } from './datos-service.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -34,16 +35,15 @@ export class entradaService {
     private fechaHora: ServicioFechaHoraService,
     private storage: StorageService,
     private api:RegistroApiService,
-    private alert : AlertService
+    private alert : AlertService,
+    private dato : DatosServiceService
     ) { this.codeReader = new BrowserQRCodeReader();
     this.selectedDevice = null;}
 
     async entradaQr(){
       this.fechaEntrada = this.fechaHora.getFechaHora();
       this.fechaRegistro = this.fechaHora.getFecha();
-      this.activated.params.subscribe(params => {
-        this.tipo = params['tipo'];
-      });
+      
       try {
         const constraints = { video: { facingMode: 'environment' } };
         const stream = await navigator.mediaDevices.getUserMedia(constraints);
@@ -69,11 +69,11 @@ export class entradaService {
                     console.log("Número de RUT (o RUN):", rut);
                     const datos = {'id: ':this.codigo,
                     'rut: ': this.codigo,
-                    'tipo: ': this.tipo,
+                    'tipo: ': this.dato.tipo,
                     'entrada: ': this.fechaEntrada,
                     'fecha: ': this.fechaRegistro}
                     console.log(datos)
-                    this.storage.saveRegistro(this.codigo,this.codigo,this.tipo,this.fechaEntrada,this.fechaRegistro)
+                    this.storage.saveRegistro(this.codigo,this.codigo,this.dato.tipo,this.fechaEntrada,this.fechaRegistro)
                     console.log('enviado');
                     this.alert.alertaEntrada();
                     

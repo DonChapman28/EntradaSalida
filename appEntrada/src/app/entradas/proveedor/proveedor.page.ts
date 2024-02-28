@@ -4,10 +4,10 @@ import { AlertController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import { BrowserQRCodeReader,BrowserPDF417Reader, Result, VideoInputDevice } from '@zxing/library';
 import { Router } from '@angular/router';
-import { ServicioFechaHoraService } from 'src/app/fechaHora/servicio-fecha-hora.service';
+import { ServicioFechaHoraService } from 'src/app/fechaHoraService/servicio-fecha-hora.service';
 import { Storage } from '@ionic/storage-angular';
-import { StorageService } from 'src/app/servicioStorage/storage.service';
-import { entradaService } from 'src/app/entradaService/entrada-servicio.service';
+import { StorageService } from 'src/app/storageService/storage.service';
+import { entradaService } from 'src/app/codeReaderService/qr-reader.service';
 
 
 @Component({
@@ -50,16 +50,6 @@ export class ProveedorPage implements OnInit {
   salidaPersona(){
     this.entradaService.salidaQr();
   }
-
-  async mostrarError() {
-    const alert = await this.alertController.create({
-      header: 'error',
-      buttons: this.alertButtons
-    });
-    await alert.present(); 
-    
-  }
-
-  
+ 
 }
 

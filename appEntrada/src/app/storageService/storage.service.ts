@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
 import { AlertController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
-import { RegistroApiService } from '../registroApi/registro-api.service';
+import { RegistroApiService } from '../registroService/registro-api.service';
+import { AlertService } from '../alertaService/alert.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,8 @@ export class StorageService {
   constructor(private storage: Storage,
     private alertController: AlertController,
     private toastController: ToastController,
-    private api: RegistroApiService) {
+    private api: RegistroApiService,
+    private alert: AlertService) {
     this.init();
   }
 
@@ -30,9 +32,10 @@ export class StorageService {
     this._storage = storage
   }
 
-  saveRegistro(key: any,rut: any, entrada: any,fecha: Date){
+  saveRegistro(key: any,rut: any,tipo:any ,entrada: any,fecha: Date){
     const data = {
       rut: rut,
+      tipo: tipo,
       entrada: entrada,
       fecha: fecha
     }
@@ -46,14 +49,15 @@ export class StorageService {
           registro.salida = salida;
           // Guardar el registro actualizado en el almacenamiento con la misma clave proporcionada
           await this.storage.set(user, registro);
-          this.alertaSalida();
+          this.alert.alertaSalida();
           const data = {'rut': registro.rut,
+                        'tipo': registro.tipo,
                         'entrada': registro.entrada,
                         'salida': registro.salida}
           this.api.postRegistro(data).subscribe();
           this.storage.remove(registro.rut);
       } else {
-        this.errorSalida();
+        this.alert.errorSalida();
           console.log('No se encontró ningún registro con la clave proporcionada.');
       }
   } catch (error) {
@@ -81,24 +85,6 @@ export class StorageService {
       }
     });
     return listado;
-  }
-
-  
-
-  async errorSalida() {
-    const alert = await this.alertController.create({
-      header: 'error salida',
-      buttons: this.alertButtons
-    });
-    await alert.present();
-  }
-
-  async alertaSalida() {
-    const alert = await this.alertController.create({
-      header: 'Salida Registrada',
-      buttons: this.alertButtons
-    });
-    await alert.present();
   }
 
 }

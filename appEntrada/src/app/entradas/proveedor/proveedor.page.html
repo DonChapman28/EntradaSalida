@@ -9,12 +9,23 @@
 
 <ion-content [fullscreen]="true">
 
-  <video class="ion-text-center" id="video"></video>
-
-<div>
-  <ion-button (click)="entradaPersona()">Entrada</ion-button>
-  <ion-button (click)="salidaPersona()">Salida</ion-button>  
+  <ion-card >
+    <video class="ion-text-center" id="video"></video>
+    <ion-row>
+     
+        <ion-button (click)="entradaPersona()">Entrada</ion-button>
+     
+        <ion-button (click)="salidaPersona()">Salida</ion-button>  
+      
+    </ion-row>
+  </ion-card>
   
-</div>  
+  
+    <ion-item *ngFor="let persona of personas">
+  
+      <ion-label>{{ persona.valor.rut }}</ion-label>
+      <ion-label>{{ persona.valor.entrada }}</ion-label>
+      
+    </ion-item>
 
 </ion-content>

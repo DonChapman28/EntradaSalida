@@ -4,8 +4,8 @@ import { AlertController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage-angular';
-import { StorageService } from '../servicioStorage/storage.service';
-import { RegistroApiService } from '../registroApi/registro-api.service';
+import { StorageService } from '../storageService/storage.service';
+import { RegistroApiService } from '../registroService/registro-api.service';
 
 @Component({
   selector: 'app-registro',

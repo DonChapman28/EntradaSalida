@@ -4,11 +4,11 @@ import { AlertController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import { BrowserQRCodeReader,Result, VideoInputDevice } from '@zxing/library';
 import { Router } from '@angular/router';
-import { ServicioFechaHoraService } from '../fechaHora/servicio-fecha-hora.service';
+import { ServicioFechaHoraService } from '../fechaHoraService/servicio-fecha-hora.service';
 import { Storage } from '@ionic/storage-angular';
-import { StorageService } from '../servicioStorage/storage.service';
-import { entradaService } from '../entradaService/entrada-servicio.service';
-import { PdfReaderService } from '../entradaService/pdf-reader.service';
+import { StorageService } from '../storageService/storage.service';
+import { entradaService } from '../codeReaderService/qr-reader.service';
+import { PdfReaderService } from '../codeReaderService/pdf-reader.service';
 
 @Component({
   selector: 'app-entrada',

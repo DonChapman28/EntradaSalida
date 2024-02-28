@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
-import { BrowserQRCodeReader,BrowserPDF417Reader, Result, VideoInputDevice } from '@zxing/library';
+import { BrowserQRCodeReader, Result, VideoInputDevice } from '@zxing/library';
 import { Router } from '@angular/router';
-import { ServicioFechaHoraService } from '../fechaHora/servicio-fecha-hora.service';
+import { ServicioFechaHoraService } from '../fechaHoraService/servicio-fecha-hora.service';
 import { Storage } from '@ionic/storage-angular';
-import { StorageService } from '../servicioStorage/storage.service';
-import { RegistroApiService } from '../registroApi/registro-api.service';
-
+import { StorageService } from '../storageService/storage.service';
+import { RegistroApiService } from '../registroService/registro-api.service';
+import { AlertService } from '../alertaService/alert.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -25,6 +25,7 @@ export class entradaService {
   fechaEntrada: any;
   fechaSalida: any;
   fechaRegistro: any;
+  tipo: any;
 
   constructor(private router: Router,
     private activated: ActivatedRoute,
@@ -32,13 +33,17 @@ export class entradaService {
     private toastController: ToastController,
     private fechaHora: ServicioFechaHoraService,
     private storage: StorageService,
-    private api:RegistroApiService
+    private api:RegistroApiService,
+    private alert : AlertService
     ) { this.codeReader = new BrowserQRCodeReader();
     this.selectedDevice = null;}
 
     async entradaQr(){
       this.fechaEntrada = this.fechaHora.getFechaHora();
       this.fechaRegistro = this.fechaHora.getFecha();
+      this.activated.params.subscribe(params => {
+        this.tipo = params['tipo'];
+      });
       try {
         const constraints = { video: { facingMode: 'environment' } };
         const stream = await navigator.mediaDevices.getUserMedia(constraints);
@@ -53,11 +58,8 @@ export class entradaService {
             codeReader.decodeFromInputVideoDevice(selectedDevice.deviceId).then((result: Result) => {
               this.codigo = result.getText();
               console.log(this.codigo);
-              // URL proporcionada
                 var url = this.codigo;
-                // Expresión regular para extraer el número de RUT (o RUN)
                 var regex = /RUN=(\d+-[0-9Kk])/;
-                // Ejecutar la expresión regular en la URL
                 var match = url.match(regex);
                 // Verificar si se encontró el número de RUT (o RUN)
                 if (match) {
@@ -67,15 +69,17 @@ export class entradaService {
                     console.log("Número de RUT (o RUN):", rut);
                     const datos = {'id: ':this.codigo,
                     'rut: ': this.codigo,
+                    'tipo: ': this.tipo,
                     'entrada: ': this.fechaEntrada,
                     'fecha: ': this.fechaRegistro}
                     console.log(datos)
-                    this.storage.saveRegistro(this.codigo,this.codigo,this.fechaEntrada,this.fechaRegistro)
+                    this.storage.saveRegistro(this.codigo,this.codigo,this.tipo,this.fechaEntrada,this.fechaRegistro)
                     console.log('enviado');
-                    this.alertaEntrada();
+                    this.alert.alertaEntrada();
+                    
                 } else {
                     console.log("Número de RUT (o RUN) no encontrado en la URL.");
-                    this.errorCarnet();
+                    this.alert.errorCarnet();
                 }
             });
             
@@ -93,7 +97,7 @@ export class entradaService {
         console.error('Error al iniciar la cámara:', error);
       }
     }
-
+    //salir
     async salidaQr(){
       this.fechaSalida = this.fechaHora.getFechaHora();
       try {
@@ -109,21 +113,16 @@ export class entradaService {
     
             codeReader.decodeFromInputVideoDevice(selectedDevice.deviceId).then((result: Result) => {
               this.codigo = result.getText();
-              // URL proporcionada
-              var url = this.codigo;
-              // Expresión regular para extraer el número de RUT (o RUN)
-              var regex = /RUN=(\d+-[0-9Kk])/;
-              // Ejecutar la expresión regular en la URL
+              var url = this.codigo;      
+              var regex = /RUN=(\d+-[0-9Kk])/;      
               var match = url.match(regex);
-              // Verificar si se encontró el número de RUT (o RUN)
-              if (match) {
-                  // El número de RUT (o RUN) se encuentra en el primer grupo capturado
+        
+              if (match) {               
                   var rut = match[1];
                   this.codigo = rut;
                   console.log("Número de RUT (o RUN):", rut);
                   this.storage.setRegistro(this.codigo,this.fechaSalida);
-                  console.log('enviado');
-                
+                  console.log('enviado');                
               }
               else console.log("Número de RUT (o RUN) no encontrado en la URL.");
               });
@@ -141,22 +140,6 @@ export class entradaService {
       } catch (error) {
         console.error('Error al iniciar la cámara:', error);
       }
-    }
-
-    async alertaEntrada() {
-      const alert = await this.alertController.create({
-        header: 'Entrada Registrada',
-        buttons: this.alertButtons
-      });
-      await alert.present();
-    }
-
-    async errorCarnet() {
-      const alert = await this.alertController.create({
-        header: 'Cedula de identidad invalida',
-        buttons: this.alertButtons
-      });
-      await alert.present();
     }
   }
 

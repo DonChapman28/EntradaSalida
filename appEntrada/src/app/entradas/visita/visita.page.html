@@ -1,13 +1,30 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>visita</ion-title>
+    <ion-title>Visita</ion-title>
+    <ion-buttons slot="end">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">visita</ion-title>
-    </ion-toolbar>
-  </ion-header>
+
+<ion-card >
+  <video class="ion-text-center" id="video"></video>
+  <ion-row>
+   
+      <ion-button (click)="entradaPersona()">Entrada</ion-button>
+   
+      <ion-button (click)="salidaPersona()">Salida</ion-button>  
+    
+  </ion-row>
+</ion-card>
+
+
+  <ion-item *ngFor="let persona of personas">
+
+    <ion-label>{{ persona.valor.rut }}</ion-label>
+    <ion-label>{{ persona.valor.entrada }}</ion-label>
+    
+  </ion-item>
 </ion-content>

@@ -4,10 +4,10 @@ import { AlertController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import { BrowserPDF417Reader, Result, VideoInputDevice } from '@zxing/library';
 import { Router } from '@angular/router';
-import { ServicioFechaHoraService } from '../fechaHora/servicio-fecha-hora.service';
+import { ServicioFechaHoraService } from '../fechaHoraService/servicio-fecha-hora.service';
 import { Storage } from '@ionic/storage-angular';
-import { StorageService } from '../servicioStorage/storage.service';
-import { RegistroApiService } from '../registroApi/registro-api.service';
+import { StorageService } from '../storageService/storage.service';
+import { RegistroApiService } from '../registroService/registro-api.service';
 import { BrowserPlatformLocation } from '@angular/common';
 
 @Injectable({

@@ -141,5 +141,13 @@ export class entradaService {
         console.error('Error al iniciar la cámara:', error);
       }
     }
+
+    private detenerCamara() {
+      // Detener la cámara y liberar recursos
+      if (this.mediaStream) {
+        this.mediaStream.getTracks().forEach(track => track.stop());
+        this.mediaStream = null;
+      }
+    }
   }
 

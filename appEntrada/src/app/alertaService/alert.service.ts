@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { AlertController } from '@ionic/angular';
-
+import { Router } from '@angular/router';
+import { DatosServiceService } from '../codeReaderService/datos-service.service';
 @Injectable({
   providedIn: 'root'
 })
 export class AlertService {
   alertButtons = ['Aceptar'];
 
-  constructor(private alertController: AlertController) { }
+  constructor(private alertController: AlertController,
+              private router: Router,
+              private dato : DatosServiceService) { }
 
   async alertaEntrada() {
     const alert = await this.alertController.create({
@@ -15,6 +18,7 @@ export class AlertService {
       buttons: this.alertButtons
     });
     await alert.present();
+    window.location.reload();
   }
 
   async errorCarnet() {

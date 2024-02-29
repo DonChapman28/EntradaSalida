@@ -54,7 +54,7 @@ export class StorageService {
                         'entrada': registro.entrada,
                         'salida': registro.salida,
                         'tipo': registro.tipo}
-          this.api.postRegistro(data).subscribe();
+         /*  this.api.postRegistro(data).subscribe(); */
           this.api.postRegistroApi(data).subscribe();
           this.storage.remove(registro.rut);
       } else {

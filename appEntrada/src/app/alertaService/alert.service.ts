@@ -18,7 +18,6 @@ export class AlertService {
       buttons: this.alertButtons
     });
     await alert.present();
-    window.location.reload();
   }
 
   async errorCarnet() {

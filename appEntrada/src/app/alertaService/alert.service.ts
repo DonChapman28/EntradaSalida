@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { DatosServiceService } from '../codeReaderService/datos-service.service';
+import { ThisReceiver } from '@angular/compiler';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,7 +16,9 @@ export class AlertService {
   async alertaEntrada() {
     const alert = await this.alertController.create({
       header: 'Entrada Registrada',
-      buttons: this.alertButtons
+      buttons: [{
+          text: 'Aceptar',
+          handler: () => {location.reload();}}]
     });
     await alert.present();
   }
@@ -23,7 +26,9 @@ export class AlertService {
   async errorCarnet() {
     const alert = await this.alertController.create({
       header: 'Cedula de identidad invalida',
-      buttons: this.alertButtons
+      buttons: [{
+        text: 'Aceptar',
+        handler: () => {location.reload();}}]
     });
     await alert.present();
   }
@@ -31,7 +36,9 @@ export class AlertService {
   async errorSalida() {
     const alert = await this.alertController.create({
       header: 'error salida',
-      buttons: this.alertButtons
+      buttons: [{
+        text: 'Aceptar',
+        handler: () => {location.reload();}}]
     });
     await alert.present();
   }
@@ -39,7 +46,9 @@ export class AlertService {
   async alertaSalida() {
     const alert = await this.alertController.create({
       header: 'Salida Registrada',
-      buttons: this.alertButtons
+      buttons: [{
+        text: 'Aceptar',
+        handler: () => {location.reload();}}]
     });
     await alert.present();
   }
@@ -55,7 +64,9 @@ export class AlertService {
   async alertaPrueba() {
     const alert = await this.alertController.create({
       header: 'Salida Registrada',
-      buttons: this.alertButtons
+      buttons: [{
+        text: 'Aceptar',
+        handler: () => {location.reload();}}]
     });
     await alert.present();
   }

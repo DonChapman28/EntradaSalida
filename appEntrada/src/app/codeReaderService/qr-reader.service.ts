@@ -69,9 +69,9 @@ export class entradaService {
                     console.log("Número de RUT (o RUN):", rut);
                     const datos = {'id: ':this.codigo,
                     'rut: ': this.codigo,
-                    'tipo: ': this.dato.tipo,
                     'entrada: ': this.fechaEntrada,
-                    'fecha: ': this.fechaRegistro}
+                    'salida: ': this.fechaRegistro,
+                    'tipo: ': this.dato.tipo}
                     console.log(datos)
                     this.storage.saveRegistro(this.codigo,this.codigo,this.dato.tipo,this.fechaEntrada,this.fechaRegistro)
                     console.log('enviado');

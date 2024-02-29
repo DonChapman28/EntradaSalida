@@ -51,10 +51,11 @@ export class StorageService {
           await this.storage.set(user, registro);
           this.alert.alertaSalida();
           const data = {'rut': registro.rut,
-                        'tipo': registro.tipo,
                         'entrada': registro.entrada,
-                        'salida': registro.salida}
+                        'salida': registro.salida,
+                        'tipo': registro.tipo}
           this.api.postRegistro(data).subscribe();
+          this.api.postRegistroApi(data).subscribe();
           this.storage.remove(registro.rut);
       } else {
         this.alert.errorSalida();

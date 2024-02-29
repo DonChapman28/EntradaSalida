@@ -30,8 +30,9 @@ export class RegistroPage implements OnInit {
     this.activated.paramMap.subscribe(p => {
       this.id = p.get('registro') ?? '';
       //con esta wea hacemos que horario tenga los datos que pedimos desde la api anasheeeeeeeiiiiii
-      this.api.getRegistro(this.id).subscribe((horarioData: any) => {
-        this.registros = horarioData;
+      this.api.getRegistroApi().subscribe((registroData: any) => {
+        this.registros = registroData;
+        console.log(registroData);
         
       });
     });

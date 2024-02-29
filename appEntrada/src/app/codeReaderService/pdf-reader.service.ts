@@ -9,6 +9,8 @@ import { Storage } from '@ionic/storage-angular';
 import { StorageService } from '../storageService/storage.service';
 import { RegistroApiService } from '../registroService/registro-api.service';
 import { BrowserPlatformLocation } from '@angular/common';
+import { DatosServiceService } from './datos-service.service';
+import { AlertService } from '../alertaService/alert.service';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +35,9 @@ export class PdfReaderService {
     private toastController: ToastController,
     private fechaHora: ServicioFechaHoraService,
     private storage: StorageService,
-    private api:RegistroApiService
+    private api:RegistroApiService,
+    private datos: DatosServiceService,
+    private alerta: AlertService
     ) { this.codeReader = new BrowserPDF417Reader();
     this.selectedDevice = null;}
 
@@ -63,13 +67,14 @@ export class PdfReaderService {
                 if (match) {
                     
                     var number = match[1];
-                    this.codigo = number;       
-                    console.log("Número de documento", number);
-                  
+                    this.codigo = number;   
+                    this.datos.ndocumento = this.codigo;    
+                    console.log("Número de documento", this.datos.ndocumento);
+                  this.alerta.alertaNDocumento();
                     console.log('enviado');
                     
                 } else {
-                    console.log("Número de RUT (o RUN) no encontrado en la URL.");
+                    console.log("Número no encontrado en la URL.");
                     
                 }
             });

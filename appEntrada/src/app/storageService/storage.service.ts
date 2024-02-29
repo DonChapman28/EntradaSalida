@@ -4,6 +4,7 @@ import { AlertController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import { RegistroApiService } from '../registroService/registro-api.service';
 import { AlertService } from '../alertaService/alert.service';
+import { DatosServiceService } from '../codeReaderService/datos-service.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,8 @@ export class StorageService {
     private alertController: AlertController,
     private toastController: ToastController,
     private api: RegistroApiService,
-    private alert: AlertService) {
+    private alert: AlertService,
+    private datos: DatosServiceService) {
     this.init();
   }
 
@@ -53,9 +55,12 @@ export class StorageService {
           const data = {'rut': registro.rut,
                         'entrada': registro.entrada,
                         'salida': registro.salida,
-                        'tipo': registro.tipo}
+                        'tipo': registro.tipo,
+                        'nDocumento': this.datos.ndocumento};
+                        console.log(this.datos.ndocumento);
          /*  this.api.postRegistro(data).subscribe(); */
           this.api.postRegistroApi(data).subscribe();
+          this.datos.ndocumento = null;
           this.storage.remove(registro.rut);
       } else {
         this.alert.errorSalida();

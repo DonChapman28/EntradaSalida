@@ -5,6 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class DatosServiceService {
   public tipo: string = '';
-  public ndocumento: number = 0;
+  public ndocumento: any;;
   constructor() { }
 }

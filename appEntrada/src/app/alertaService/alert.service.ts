@@ -44,4 +44,20 @@ export class AlertService {
     await alert.present();
   }
 
+  async alertaNDocumento() {
+    const alert = await this.alertController.create({
+      header: 'Documento Registrado',
+      buttons: this.alertButtons
+    });
+    await alert.present();
+  }
+
+  async alertaPrueba() {
+    const alert = await this.alertController.create({
+      header: 'Salida Registrada',
+      buttons: this.alertButtons
+    });
+    await alert.present();
+  }
+
 }

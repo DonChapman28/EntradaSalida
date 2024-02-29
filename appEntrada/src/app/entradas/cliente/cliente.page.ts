@@ -9,6 +9,7 @@ import { Storage } from '@ionic/storage-angular';
 import { StorageService } from 'src/app/storageService/storage.service';
 import { entradaService } from 'src/app/codeReaderService/qr-reader.service';
 import { DatosServiceService } from 'src/app/codeReaderService/datos-service.service';
+import { PdfReaderService } from 'src/app/codeReaderService/pdf-reader.service';
 
 @Component({
   selector: 'app-cliente',
@@ -32,7 +33,8 @@ export class ClientePage implements OnInit {
     private fechaHora: ServicioFechaHoraService,
     private storage: StorageService,
     private entradaService: entradaService,
-    private datos :DatosServiceService
+    private datos :DatosServiceService,
+    private pdf: PdfReaderService
    ) {}
 
   ngOnInit() {
@@ -52,6 +54,10 @@ export class ClientePage implements OnInit {
  
   entradaPersona(){
     this.entradaService.entradaQr();
+  }
+
+  lectorPdf(){
+    this.pdf.escannerPdf417();
   }
 
   salidaPersona(){

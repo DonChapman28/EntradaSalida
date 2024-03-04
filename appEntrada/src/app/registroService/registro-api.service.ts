@@ -25,10 +25,12 @@ export class RegistroApiService {
     return this.http.get(url);
   }
 
-  getRegistroApiFiltro(data: any) {
-    const url = this.urlAPI + '/filtro'; 
+  getRegistroApiFiltro(fecha: string) {
+    const url = `${this.urlAPI}/filtro?fecha=${fecha}`; 
     return this.http.get(url);
-  }
+}
+
+
 
   postRegistroApi(data : any) {
     const url = this.urlAPI; 

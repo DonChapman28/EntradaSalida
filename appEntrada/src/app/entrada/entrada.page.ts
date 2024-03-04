@@ -93,15 +93,13 @@ export class EntradaPage implements OnInit {
 }
 
 filtrar(){
-  this.activated.paramMap.subscribe(p => {
-    this.id = p.get('registro') ?? '';
-    //con esta wea hacemos que horario tenga los datos que pedimos desde la api anasheeeeeeeiiiiii
-    this.api.getRegistroApi().subscribe((registroData: any) => {
+    console.log(this.datos.fechaFiltro);
+    this.api.getRegistroApiFiltro(this.datos.fechaFiltro).subscribe((registroData: any) => {
       this.registros = registroData;
       console.log(registroData);
       
     });
-  });
+  
 }
   
 }

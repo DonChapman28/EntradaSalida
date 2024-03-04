@@ -28,6 +28,17 @@ export class ServicioFechaHoraService {
     //fecha completa para el registro
     return (fechaActual);
   }
+  
+  getFechaRegistro(){
+    const fechaActual = new Date();
+    
+    const dia = fechaActual.getDate();
+    const mes = fechaActual.getMonth() + 1; //los meses en js van de 0 a 11!
+    const año = fechaActual.getFullYear();
+
+    const fechaFormateada = `${dia}/${mes}/${año}`;
+    return(fechaFormateada);
+  }
 
 }
 

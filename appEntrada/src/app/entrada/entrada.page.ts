@@ -9,6 +9,8 @@ import { Storage } from '@ionic/storage-angular';
 import { StorageService } from '../storageService/storage.service';
 import { entradaService } from '../codeReaderService/qr-reader.service';
 import { PdfReaderService } from '../codeReaderService/pdf-reader.service';
+import { DatosServiceService } from '../codeReaderService/datos-service.service';
+import { RegistroApiService } from '../registroService/registro-api.service';
 
 @Component({
   selector: 'app-entrada',
@@ -24,6 +26,10 @@ export class EntradaPage implements OnInit {
   codigo: any;
   fechaEntrada: any;
   fechaSalida: any;
+  fechaSeleccionada: any;
+  id : any;
+  registros : any;
+
 
   constructor(private router: Router,
     private activated: ActivatedRoute,
@@ -32,7 +38,9 @@ export class EntradaPage implements OnInit {
     private fechaHora: ServicioFechaHoraService,
     private storage: StorageService,
     private entradaService: entradaService,
-    private pdf417 : PdfReaderService
+    private pdf417 : PdfReaderService,
+    private datos: DatosServiceService,
+    private api: RegistroApiService
    ) {}
 
   ngOnInit() {
@@ -42,6 +50,8 @@ export class EntradaPage implements OnInit {
     this.storage.init
     this.storage.getAllRegistro().then(x=> {this.personas = x; console.log(this.personas);
     });
+
+    
   }
 
   entradaPersona(){
@@ -64,5 +74,34 @@ export class EntradaPage implements OnInit {
     
   }
 
+  capturarFecha(event: any) {
+    const fechaSeleccionadaString = event.detail.value;
+    const fechaSeleccionadaDate = new Date(fechaSeleccionadaString);
+    if (!isNaN(fechaSeleccionadaDate.getTime())) {
+        
+        const dia = ('0' + fechaSeleccionadaDate.getDate()).slice(-2);
+        const mes = ('0' + (fechaSeleccionadaDate.getMonth() + 1)).slice(-2); 
+        const año = fechaSeleccionadaDate.getFullYear();
+        const fechaFormateada = `${año}-${mes}-${dia}`;
+        this.datos.fechaFiltro = fechaFormateada;
+        console.log(fechaFormateada);
+        console.log(this.datos.fechaFiltro);
+        this.api.getRegistroApiFiltro(fechaFormateada);
+    } else {
+        console.error('Fecha seleccionada no válida');
+    }
+}
+
+filtrar(){
+  this.activated.paramMap.subscribe(p => {
+    this.id = p.get('registro') ?? '';
+    //con esta wea hacemos que horario tenga los datos que pedimos desde la api anasheeeeeeeiiiiii
+    this.api.getRegistroApi().subscribe((registroData: any) => {
+      this.registros = registroData;
+      console.log(registroData);
+      
+    });
+  });
+}
   
 }

@@ -5,6 +5,7 @@ import { ToastController } from '@ionic/angular';
 import { RegistroApiService } from '../registroService/registro-api.service';
 import { AlertService } from '../alertaService/alert.service';
 import { DatosServiceService } from '../codeReaderService/datos-service.service';
+import { ServicioFechaHoraService } from '../fechaHoraService/servicio-fecha-hora.service';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,8 @@ export class StorageService {
     private toastController: ToastController,
     private api: RegistroApiService,
     private alert: AlertService,
-    private datos: DatosServiceService) {
+    private datos: DatosServiceService,
+    private fecha: ServicioFechaHoraService) {
     this.init();
   }
 

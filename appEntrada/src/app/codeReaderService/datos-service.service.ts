@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class DatosServiceService {
   public tipo: string = '';
-  public ndocumento: any;;
+  public ndocumento: any;
+  public fechaFiltro: any;
   constructor() { }
 }

@@ -24,6 +24,16 @@
     
   </ion-item>
  -->
+ <ion-button (click)="mostrarDatos()" ><ion-icon name="calendar-outline"></ion-icon></ion-button>
+ <ion-text color="primary" *ngIf="permitir && true;">
+  <ion-button id="open-modal" (click)="filtrar()">Seleccionar</ion-button>
+   <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="fechaSeleccionada" (ionChange)="capturarFecha($event)">
+    
+   </ion-datetime>
+   </ion-text>
+ 
+   <ion-modal #modal trigger="open-modal">
+   </ion-modal>
 
  <ion-row class="header-row">
   <ion-col size="2"><strong>RUT</strong></ion-col>

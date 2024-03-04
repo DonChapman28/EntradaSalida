@@ -21,7 +21,7 @@ export class EntradaPage implements OnInit {
   
   alertButtons = ['Aceptar'];
   entrada : boolean = true;
-
+  permitir : boolean = false;
   personas:any = [];
   codigo: any;
   fechaEntrada: any;
@@ -101,5 +101,10 @@ filtrar(){
     });
   
 }
+
+mostrarDatos()
+    {
+      this.permitir = !this.permitir;
+    }
   
 }

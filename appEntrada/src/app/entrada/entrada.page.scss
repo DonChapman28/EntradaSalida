@@ -14,3 +14,15 @@
         margin: 0 auto; /* Centra el video horizontalmente */
     }
 }
+
+.header-row {
+    background-color: rgb(0, 0, 0); /* Color de fondo para la fila de encabezados */
+  }
+  
+  .even-row {
+    background-color: #2c2c2c; /* Color de fondo para filas pares */
+  }
+  
+  .odd-row {
+    background-color: #3f3f3f; /* Color de fondo para filas impares */
+  }

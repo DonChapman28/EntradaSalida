@@ -25,7 +25,7 @@ export class AlertService {
 
   async errorCarnet() {
     const alert = await this.alertController.create({
-      header: 'Cedula de identidad invalida',
+      header: 'Cedula de identidad no valida',
       buttons: [{
         text: 'Aceptar',
         handler: () => {location.reload();}}]

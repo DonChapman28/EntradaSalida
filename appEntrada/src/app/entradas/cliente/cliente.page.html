@@ -1,32 +1,32 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>cliente</ion-title>
-    <ion-buttons slot="end">
-      <ion-back-button defaultHref="home"></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
+<ion-toolbar>
+<ion-title>cliente</ion-title>
+<ion-buttons slot="end">
+<ion-back-button defaultHref="home"></ion-back-button>
+</ion-buttons>
+</ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
 
 <ion-card >
-  <video class="ion-text-center"  id="video"></video>
-  <ion-row>
-   
-      <ion-button (click)="entradaPersona()">Entrada</ion-button>
+<video class="ion-text-center"  id="video"></video>
+<ion-row>
 
-      <ion-button id="lector" (click)="lectorPdf()"><ion-icon name="reader-outline"></ion-icon>Documento</ion-button>
-   
-      <ion-button (click)="salidaPersona()">Salida</ion-button>  
-    
-  </ion-row>
+<ion-button (click)="entradaPersona()">Entrada</ion-button>
+
+<ion-button id="lector" (click)="lectorPdf()"><ion-icon name="reader-outline"></ion-icon>Documento</ion-button>
+
+<ion-button (click)="salidaPersona()">Salida</ion-button>  
+
+</ion-row>
 </ion-card>
 
 
-  <ion-item *ngFor="let persona of personas">
+<ion-item *ngFor="let persona of personas">
 
-    <ion-label>{{ persona.valor.rut }}</ion-label>
-    <ion-label>{{ persona.valor.entrada }}</ion-label>
-    
-  </ion-item>
+<ion-label>{{ persona.valor.rut }}</ion-label>
+<ion-label>{{ persona.valor.entrada }}</ion-label>
+
+</ion-item>
 </ion-content>

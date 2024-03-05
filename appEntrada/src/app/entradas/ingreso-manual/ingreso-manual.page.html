@@ -1,0 +1,35 @@
+<ion-header [translucent]="true">
+<ion-toolbar>
+<ion-title>ingresoManual</ion-title>
+</ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+<ion-header collapse="condense">
+<ion-toolbar>
+<ion-title size="large">ingresoManual</ion-title>
+</ion-toolbar>
+</ion-header>
+
+
+
+<ion-card>
+<ion-input [(ngModel)]="codigo" type="text" placeholder="Ingrese Rut"></ion-input>
+<br>
+<ion-list>
+<ion-item>
+<ion-select [(ngModel)]="Tipo" aria-label="TipoCliente" interface="popover" placeholder="Tipo Cliente">
+<ion-select-option value="Cliente">Cliente</ion-select-option>
+<ion-select-option value="Visita">Visita</ion-select-option>
+<ion-select-option value="Proveedor">Proveedor</ion-select-option>
+</ion-select>
+</ion-item>
+</ion-list>
+
+
+<!-- <ion-button (click)="registrar()"></ion-button> -->
+
+<ion-button (click)="entradaPersona()">Entrada</ion-button>
+<ion-button (click)="salidaPersona()">Salida</ion-button>  
+</ion-card>
+</ion-content>

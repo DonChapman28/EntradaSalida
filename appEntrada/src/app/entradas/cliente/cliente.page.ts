@@ -37,7 +37,7 @@ export class ClientePage implements OnInit {
     private pdf: PdfReaderService
    ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     console.log(this.fechaHora.getFechaHora());
     console.log(this.entrada);
     this.fechaEntrada = this.fechaHora.getFechaHora();
@@ -63,5 +63,7 @@ export class ClientePage implements OnInit {
   salidaPersona(){
     this.entradaService.salidaQr();
   }
+
+  
   
 }

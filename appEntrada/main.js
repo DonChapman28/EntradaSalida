@@ -10,7 +10,8 @@ function createWindow() {
     height: 600,
     webPreferences: {
       nodeIntegration: true,
-      webSecurity: false, // Habilitar la carga de recursos locales
+      webSecurity: false,
+      preload: path.join(__dirname, 'preload.js'), // Habilitar la carga de recursos locales
     }
   });
 

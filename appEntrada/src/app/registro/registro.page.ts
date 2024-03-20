@@ -22,6 +22,7 @@ export class RegistroPage implements OnInit {
   fechaEntrada: any;
   fechaSalida: any;
   fechaSeleccionada: any;
+  fechaSeleccionada2: any;
   constructor(private router: Router,
     private activated: ActivatedRoute,
     private alertController: AlertController,
@@ -38,7 +39,7 @@ export class RegistroPage implements OnInit {
     this.activated.paramMap.subscribe(p => {
       this.id = p.get('registro') ?? '';
       //con esta wea hacemos que horario tenga los datos que pedimos desde la api anasheeeeeeeiiiiii
-      this.api.getRegistroApi().subscribe((registroData: any) => {
+      this.api.getRegistroFechaActualApi().subscribe((registroData: any) => {
         this.registros = registroData;
         console.log(registroData);
         
@@ -55,6 +56,24 @@ export class RegistroPage implements OnInit {
   }
 
   capturarFecha(event: any) {
+    const fechaSeleccionadaString = event.detail.value;
+    const fechaSeleccionadaDate = new Date(fechaSeleccionadaString);
+    if (!isNaN(fechaSeleccionadaDate.getTime())) {
+        
+        const dia = ('0' + fechaSeleccionadaDate.getDate()).slice(-2);
+        const mes = ('0' + (fechaSeleccionadaDate.getMonth() + 1)).slice(-2); 
+        const año = fechaSeleccionadaDate.getFullYear();
+        const fechaFormateada = `${año}-${mes}-${dia}`;
+        this.datos.fechaFiltro = fechaFormateada;
+        console.log(fechaFormateada);
+        console.log(this.datos.fechaFiltro);
+        this.api.getRegistroApiFiltro(fechaFormateada);
+    } else {
+        console.error('Fecha seleccionada no válida');
+    }
+}
+
+capturarFecha2(event: any) {
     const fechaSeleccionadaString = event.detail.value;
     const fechaSeleccionadaDate = new Date(fechaSeleccionadaString);
     if (!isNaN(fechaSeleccionadaDate.getTime())) {

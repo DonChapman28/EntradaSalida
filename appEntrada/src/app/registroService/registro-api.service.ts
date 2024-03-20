@@ -24,6 +24,11 @@ export class RegistroApiService {
     const url = this.urlAPI; 
     return this.http.get(url);
   }
+  
+  getRegistroFechaActualApi() {
+    const url = this.urlAPI + 'fechaactual'; 
+    return this.http.get(url);
+  }
 
   getRegistroApiFiltro(fecha: string) {
     const url = `${this.urlAPI}/filtro?fecha=${fecha}`; 

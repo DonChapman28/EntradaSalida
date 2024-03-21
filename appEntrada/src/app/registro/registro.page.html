@@ -27,7 +27,7 @@
  <ion-button (click)="mostrarDatos()" ><ion-icon name="calendar-outline"></ion-icon></ion-button>
  <ion-text color="primary" *ngIf="permitir && true;">
   <ion-button id="open-modal" (click)="filtrar()">Seleccionar</ion-button>
-   <ion-datetime presentation="date" displayFormat="YYYY-MM-DD" [(ngModel)]="fechaSeleccionada" (ionChange)="capturarFecha($event)" [multiple]="true" [value]="">
+   <ion-datetime presentation="date" displayFormat="YYYY-MM-DD" [(ngModel)]="fechaSeleccionada" (ionChange)="capturarFecha($event)" >
     
    </ion-datetime>
    </ion-text>

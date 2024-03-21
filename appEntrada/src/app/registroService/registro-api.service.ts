@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class RegistroApiService {
   private urlBaseAPI = 'https://registroentradasalida.onrender.com';
-  private urlAPI = 'http://localhost:3000/api/datos'; // URL nuevo backend
+  private urlAPI = 'https://nodebackpg.onrender.com/api/datos'; // URL nuevo backend
 
   constructor(private http: HttpClient) { }
 

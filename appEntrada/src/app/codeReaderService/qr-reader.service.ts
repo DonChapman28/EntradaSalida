@@ -42,7 +42,7 @@ this.selectedDevice = null;}
 
 async entradaQr(){
 this.fechaEntrada = this.fechaHora.getFechaHora();
-this.fechaRegistro = this.fechaHora.getFecha();
+this.fechaRegistro = this.fechaHora.getFechaHora();
 
 try {
 const constraints = { video: { facingMode: 'environment' } };

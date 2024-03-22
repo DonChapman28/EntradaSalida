@@ -43,12 +43,7 @@ export class RegistroPage implements OnInit {
         this.registros = registroData;
         console.log(registroData);
         
-        console.log(this.fechaHora.getFechaHora());
-        console.log(this.entrada);
-        this.fechaEntrada = this.fechaHora.getFechaHora();
-        this.storage.init
-        this.storage.getAllRegistro().then(x=> {this.personas = x; console.log(this.personas);
-        });
+        
 
     
       });
@@ -56,24 +51,6 @@ export class RegistroPage implements OnInit {
   }
 
   capturarFecha(event: any) {
-    const fechaSeleccionadaString = event.detail.value;
-    const fechaSeleccionadaDate = new Date(fechaSeleccionadaString);
-    if (!isNaN(fechaSeleccionadaDate.getTime())) {
-        
-        const dia = ('0' + fechaSeleccionadaDate.getDate()).slice(-2);
-        const mes = ('0' + (fechaSeleccionadaDate.getMonth() + 1)).slice(-2); 
-        const año = fechaSeleccionadaDate.getFullYear();
-        const fechaFormateada = `${año}-${mes}-${dia}`;
-        this.datos.fechaFiltro = fechaFormateada;
-        console.log(fechaFormateada);
-        console.log(this.datos.fechaFiltro);
-        this.api.getRegistroApiFiltro(fechaFormateada);
-    } else {
-        console.error('Fecha seleccionada no válida');
-    }
-}
-
-capturarFecha2(event: any) {
     const fechaSeleccionadaString = event.detail.value;
     const fechaSeleccionadaDate = new Date(fechaSeleccionadaString);
     if (!isNaN(fechaSeleccionadaDate.getTime())) {

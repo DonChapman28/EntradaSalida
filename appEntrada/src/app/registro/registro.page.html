@@ -13,17 +13,7 @@
       <ion-title size="large">Registro</ion-title>
     </ion-toolbar>
   </ion-header>
-  <!-- <ion-button>listar</ion-button> -->
- <!--  <ion-item *ngFor="let registro of registros">
-<td>
-  <ion-label>{{ registro.rut }}</ion-label>
-    <ion-label>{{ registro.tipo }}</ion-label>
-    <ion-label>{{ registro.entrada }}</ion-label>
-    <ion-label>{{ registro.salida }}</ion-label>
-</td>
-    
-  </ion-item>
- -->
+ 
  <ion-button (click)="mostrarDatos()" ><ion-icon name="calendar-outline"></ion-icon></ion-button>
  <ion-text color="primary" *ngIf="permitir && true;">
   <ion-button id="open-modal" (click)="filtrar()">Seleccionar</ion-button>
@@ -35,23 +25,30 @@
    <ion-modal #modal trigger="open-modal">
    </ion-modal>
 
- <ion-row class="header-row">
-  <ion-col size="2"><strong>RUT</strong></ion-col>
-  <ion-col size="2"><strong>Tipo</strong></ion-col>
-  <ion-col size="3"><strong>Entrada</strong></ion-col>
-  <ion-col size="3"><strong>Salida</strong></ion-col>
-  <ion-col size="2"><strong>N° Documento</strong></ion-col>
-</ion-row>
+   <ion-card>
+    <ion-card-content style="overflow-x: auto;">
+      <table style="border-collapse: collapse; width: 100%;">
+        <thead>
+          <tr>
+            <th style="min-width: 100px; border-bottom: 1px solid black; text-align: left;">RUT</th>
+            <th style="min-width: 100px; border-bottom: 1px solid black; text-align: left;">Tipo</th>
+            <th style="min-width: 100px; border-bottom: 1px solid black; text-align: left;">Entrada</th>
+            <th style="min-width: 100px; border-bottom: 1px solid black; text-align: left;">Salida</th>
+            <th style="min-width: 100px; border-bottom: 1px solid black; text-align: left;">N° Documento</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let registro of registros">
+            <td style="min-width: 100px; border-bottom: 1px solid black; text-align: left;">{{ registro.rut }}</td>
+            <td style="min-width: 100px; border-bottom: 1px solid black; text-align: left;">{{ registro.tipo }}</td>
+            <td style="min-width: 100px; border-bottom: 1px solid black; text-align: left;">{{ registro.entrada }}</td>
+            <td style="min-width: 100px; border-bottom: 1px solid black; text-align: left;">{{ registro.salida }}</td>
+            <td style="min-width: 100px; border-bottom: 1px solid black; text-align: left;">{{ registro.ndocumento }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </ion-card-content>
+  </ion-card>
 
-<ng-container *ngFor="let registro of registros; let i = index;">
-  <ion-row [class]="i % 2 === 0 ? 'even-row' : 'odd-row'">
-    <ion-col size="2">{{ registro.rut }}</ion-col>
-    <ion-col size="2">{{ registro.tipo }}</ion-col>
-    <ion-col size="3">{{ registro.entrada }}</ion-col>
-    <ion-col size="3">{{ registro.salida }}</ion-col>
-    <ion-col size="2">{{ registro.ndocumento }}</ion-col>
-    
-  </ion-row>
-</ng-container>
  
 </ion-content>

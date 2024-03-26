@@ -9,3 +9,16 @@
   .odd-row {
     background-color: #3f3f3f; /* Color de fondo para filas impares */
   }
+
+  .table-container {
+    overflow-x:auto;
+  }
+  
+  .table-scroll {
+    width:max-content; /* Para permitir que la tabla tenga su tamaño original */
+  }
+
+  .datos{
+    width: max-content;
+  }
+

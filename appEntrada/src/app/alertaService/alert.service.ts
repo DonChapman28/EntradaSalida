@@ -14,61 +14,51 @@ private router: Router,
 private dato : DatosServiceService) { }
 
 async alertaEntrada() {
-const alert = await this.alertController.create({
-header: 'Entrada Registrada',
-buttons: [{
-text: 'Aceptar',
-handler: () => {location.reload();}}]
-});
-await alert.present();
-}
+    const alert = await this.alertController.create({
+      header: 'Entrada Registrada'
+    });
+    await alert.present();
+    setTimeout(() => {alert.dismiss();}, 3000);
+  }
 
 async errorCarnet() {
 const alert = await this.alertController.create({
 header: 'Cedula de identidad no valida',
-buttons: [{
-text: 'Aceptar',
-handler: () => {location.reload();}}]
 });
 await alert.present();
+setTimeout(() => {alert.dismiss();}, 3000);
 }
 
 async errorSalida() {
 const alert = await this.alertController.create({
 header: 'error salida',
-buttons: [{
-text: 'Aceptar',
-handler: () => {location.reload();}}]
 });
 await alert.present();
+setTimeout(() => {alert.dismiss();}, 3000);
 }
 
 async alertaSalida() {
 const alert = await this.alertController.create({
 header: 'Salida Registrada',
-buttons: [{
-text: 'Aceptar',
-handler: () => {location.reload();}}]
 });
 await alert.present();
+setTimeout(() => {alert.dismiss();}, 3000);
 }
 
 async alertaNDocumento() {
 const alert = await this.alertController.create({
 header: 'Documento Registrado',
-buttons: this.alertButtons
 });
 await alert.present();
+setTimeout(() => {alert.dismiss();}, 3000);
 }
 
 async alertaPrueba() {
 const alert = await this.alertController.create({
 header: 'Salida Registrada',
-buttons: [{
-text: 'Aceptar',
-handler: () => {location.reload();}}]
 });
 await alert.present();
+setTimeout(() => {alert.dismiss();}, 3000);
 }
 
 }

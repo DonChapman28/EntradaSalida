@@ -22,6 +22,7 @@ export class RegistroPage implements OnInit {
   fechaEntrada: any;
   fechaSalida: any;
   fechaSeleccionada: any;
+  fechaSeleccionada2: any;
   constructor(private router: Router,
     private activated: ActivatedRoute,
     private alertController: AlertController,
@@ -38,16 +39,11 @@ export class RegistroPage implements OnInit {
     this.activated.paramMap.subscribe(p => {
       this.id = p.get('registro') ?? '';
       //con esta wea hacemos que horario tenga los datos que pedimos desde la api anasheeeeeeeiiiiii
-      this.api.getRegistroApi().subscribe((registroData: any) => {
+      this.api.getRegistroFechaActualApi().subscribe((registroData: any) => {
         this.registros = registroData;
         console.log(registroData);
         
-        console.log(this.fechaHora.getFechaHora());
-        console.log(this.entrada);
-        this.fechaEntrada = this.fechaHora.getFechaHora();
-        this.storage.init
-        this.storage.getAllRegistro().then(x=> {this.personas = x; console.log(this.personas);
-        });
+        
 
     
       });

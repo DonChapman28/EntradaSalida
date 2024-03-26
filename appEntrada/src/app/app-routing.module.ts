@@ -30,9 +30,6 @@ const routes: Routes = [
   {
     path: 'proveedor/:tipo',
     loadChildren: () => import('./entradas/proveedor/proveedor.module').then( m => m.ProveedorPageModule)
-  },  {
-    path: 'photo',
-    loadChildren: () => import('./photo/photo.module').then( m => m.PhotoPageModule)
   },
   {
     path: 'ingreso-manual',

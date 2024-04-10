@@ -46,7 +46,14 @@ this.fechaRegistro = this.fechaHora.getFechaHora();
 
 try {
 const constraints = { video: { facingMode: 'environment' } };
-const stream = await navigator.mediaDevices.getUserMedia(constraints);
+const stream = await navigator.mediaDevices.getUserMedia({
+    audio: false,
+    video: {
+      width: { min: 640, ideal: 1920 },
+      height: { min: 400, ideal: 1080 },
+      aspectRatio: { ideal: 1.7777777778 }
+    }
+  });;
 if (stream) {
 // Almacenamos el stream en la propiedad mediaStream
 this.mediaStream = stream;
@@ -102,7 +109,14 @@ async salidaQr(){
 this.fechaSalida = this.fechaHora.getFechaHora();
 try {
 const constraints = { video: { facingMode: 'environment' } };
-const stream = await navigator.mediaDevices.getUserMedia(constraints);
+const stream = await navigator.mediaDevices.getUserMedia({
+    audio: false,
+    video: {
+      width: { min: 640, ideal: 1920 },
+      height: { min: 400, ideal: 1080 },
+      aspectRatio: { ideal: 1.7777777778 }
+    }
+  });;
 if (stream) {
 this.mediaStream = stream;
 const codeReader = new BrowserQRCodeReader();

@@ -46,7 +46,15 @@ export class PdfReaderService {
     async escannerPdf417(){
       try {
         const constraints = { video: { facingMode: 'environment' } };
-        const stream = await navigator.mediaDevices.getUserMedia(constraints);
+        const stream = await navigator.mediaDevices.getUserMedia({
+          audio: false,
+          video: {
+            width: { min: 640, ideal: 1920 },
+            height: { min: 400, ideal: 1080 },
+            aspectRatio: { ideal: 0.5625 },
+            facingMode: 'environment' 
+          }
+        });
         if (stream) {
           // Almacenamos el stream en la propiedad mediaStream
         this.mediaStream = stream;

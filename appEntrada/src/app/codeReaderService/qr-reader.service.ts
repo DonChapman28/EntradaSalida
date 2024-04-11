@@ -18,7 +18,7 @@ export class entradaService {
 alertButtons = ['Aceptar'];
 private codeReader: BrowserQRCodeReader;
 private selectedDevice: VideoInputDevice | null;
-private scanning: boolean = false;
+private scanning: boolean = true;
 private mediaStream: MediaStream | null = null;
 private continueScanning: boolean = true;
 

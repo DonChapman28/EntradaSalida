@@ -10,8 +10,9 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 
 import { HttpClientModule } from '@angular/common/http';
 import { BarcodeScanningModalComponent } from './codeReaderService/barcode-scanning-modal.component';
+import { BarcodeScanningModalComponent417 } from './codeReaderService/barcode-scanning-modalPdf417.component';
 @NgModule({
-  declarations: [AppComponent, BarcodeScanningModalComponent],
+  declarations: [AppComponent, BarcodeScanningModalComponent,BarcodeScanningModalComponent417],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,IonicStorageModule.forRoot(),HttpClientModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy,}],
   bootstrap: [AppComponent],

@@ -39,28 +39,9 @@ export class PdfReaderService {
 
     
 
-    /* async escannerPdf417(){
-      try {
-        const constraints = { video: { facingMode: 'environment' } };
-        const stream = await navigator.mediaDevices.getUserMedia({
-          audio: false,
-          video: {
-            width: { min: 640, ideal: 1920 },
-            height: { min: 400, ideal: 1080 },
-            aspectRatio: { ideal: 0.5625 },
-            facingMode: 'environment' 
-          }
-        });
-        if (stream) {
-          // Almacenamos el stream en la propiedad mediaStream
-        this.mediaStream = stream;
-          const codeReader = new BrowserPDF417Reader();
-          const videoInputDevices: VideoInputDevice[] = await codeReader.getVideoInputDevices();
-    
-          if (videoInputDevices && videoInputDevices.length > 0) {
-            const selectedDevice: VideoInputDevice = videoInputDevices[0];
-            codeReader.decodeFromInputVideoDevice(selectedDevice.deviceId).then((result: Result) => {
-              this.codigo = result.getText();
+    async escannerPdf417(code: any){
+      
+              this.codigo = code;
               console.log(this.codigo);   
                 var url = this.codigo;
                 // Expresión regular para extraer el número de url
@@ -81,24 +62,9 @@ export class PdfReaderService {
                     console.log("Número no encontrado en la URL.");
                     
                 }
-            });
+            };
             
-            const video = document.getElementById('video') as HTMLVideoElement;
-            video.srcObject = stream;
-            video.play();
-            console.log('funciona');
-            
-          } else {
-            console.error('No se encontraron dispositivos de video.');
-          }
-        } else {
-          console.error('No se pudo obtener acceso a la cámara.');
-        }
-      } catch (error) {
-        console.error('Error al iniciar la cámara:', error);
-      }
-    } */
-
+           
   }
 
 

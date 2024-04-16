@@ -10,6 +10,7 @@ import { entradaService } from 'src/app/codeReaderService/qr-reader.service';
 import { DatosServiceService } from 'src/app/codeReaderService/datos-service.service';
 import { PdfReaderService } from 'src/app/codeReaderService/pdf-reader.service';
 import { BarcodeScanningModalComponent } from 'src/app/codeReaderService/barcode-scanning-modal.component';
+import { BarcodeScanningModalComponent417 } from 'src/app/codeReaderService/barcode-scanning-modalPdf417.component';
 import { LensFacing,BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
 @Component({
   selector: 'app-cliente',
@@ -103,6 +104,27 @@ export class ClientePage implements OnInit {
       }
   }
 
+  async startScan417(){
+    
+    const modal = await this.modalController.create({
+      component: BarcodeScanningModalComponent417,
+      cssClass : 'barcode-scanning-modal',
+      showBackdrop: false,
+      componentProps: { 
+        formats : ['PDF_417'],
+        LensFacing: LensFacing.Back
+       }
+      });
+    
+      await modal.present();
+  
+      const {data} = await modal.onWillDismiss();
+      if(data){
+        this.scanResult = data?.barcode?.displayValue;
+        this.pdf.escannerPdf417(this.scanResult);
+        console.log(this.scanResult);
+      }
+  }
 /*   lectorPdf(){
     this.pdf.escannerPdf417(this.scanResult);
   } */

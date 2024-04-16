@@ -10,22 +10,22 @@
 <ion-content [fullscreen]="true">
 
   <ion-card >
-    <video class="ion-text-center" id="video"></video>
-    <ion-row>
-     
-        <ion-button (click)="entradaPersona()">Entrada</ion-button>
-     
-        <ion-button (click)="salidaPersona()">Salida</ion-button>  
-      
-    </ion-row>
+  
+  <!-- <ion-button id="lector" (click)="lectorPdf()"><ion-icon name="reader-outline"></ion-icon>Documento</ion-button> -->
+  
+  <ion-button (click)="startScan()">Scan <ion-icon name="scan-outline"></ion-icon> </ion-button>
+  <ion-button (click)="startScan2()">Scan <ion-icon name="scan-outline"></ion-icon> </ion-button>
+  
+  <!-- <ion-item class="result" *ngIf="scanResult" lines="none">
+  
+  </ion-item> -->
   </ion-card>
   
   
-    <ion-item *ngFor="let persona of personas">
+  <ion-item *ngFor="let persona of personas">
   
-      <ion-label>{{ persona.valor.rut }}</ion-label>
-      <ion-label>{{ persona.valor.entrada }}</ion-label>
-      
-    </ion-item>
-
-</ion-content>
+  <ion-label>{{ persona.valor.rut }}</ion-label>
+  <ion-label>{{ persona.valor.entrada }}</ion-label>
+  
+  </ion-item>
+  </ion-content>

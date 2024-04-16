@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController,ModalController, Platform} from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
-import { BrowserQRCodeReader,BrowserPDF417Reader, Result, VideoInputDevice } from '@zxing/library';
 import { Router } from '@angular/router';
 import { ServicioFechaHoraService } from 'src/app/fechaHoraService/servicio-fecha-hora.service';
 import { Storage } from '@ionic/storage-angular';
@@ -10,7 +9,8 @@ import { StorageService } from 'src/app/storageService/storage.service';
 import { entradaService } from 'src/app/codeReaderService/qr-reader.service';
 import { DatosServiceService } from 'src/app/codeReaderService/datos-service.service';
 import { PdfReaderService } from 'src/app/codeReaderService/pdf-reader.service';
-
+import { BarcodeScanningModalComponent } from 'src/app/codeReaderService/barcode-scanning-modal.component';
+import { LensFacing,BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
 @Component({
   selector: 'app-cliente',
   templateUrl: './cliente.page.html',
@@ -20,7 +20,7 @@ export class ClientePage implements OnInit {
 
   alertButtons = ['Aceptar'];
   entrada : boolean = true;
-
+  scanResult: any;
   personas:any = [];
   codigo: any;
   fechaEntrada: any;
@@ -34,10 +34,17 @@ export class ClientePage implements OnInit {
     private storage: StorageService,
     private entradaService: entradaService,
     private datos :DatosServiceService,
-    private pdf: PdfReaderService
+    private pdf: PdfReaderService,private modalController: ModalController,
+    private platform: Platform
    ) {}
 
-  async ngOnInit() {
+  ngOnInit(): void {
+    if(this.platform.is('capacitor')){
+      BarcodeScanner.isSupported().then();
+      BarcodeScanner.checkPermissions().then();
+      BarcodeScanner.removeAllListeners();
+    }
+    
     console.log(this.fechaHora.getFechaHora());
     console.log(this.entrada);
     this.fechaEntrada = this.fechaHora.getFechaHora();
@@ -52,17 +59,55 @@ export class ClientePage implements OnInit {
     
   }
  
-  entradaPersona(){
-    this.entradaService.entradaQr();
+  async startScan(){
+    
+    const modal = await this.modalController.create({
+      component: BarcodeScanningModalComponent,
+      cssClass : 'barcode-scanning-modal',
+      showBackdrop: false,
+      componentProps: { 
+        formats : [],
+        LensFacing: LensFacing.Back
+       }
+      });
+    
+      await modal.present();
+  
+      const {data} = await modal.onWillDismiss();
+      if(data){
+        this.scanResult = data?.barcode?.displayValue;
+        this.entradaService.entradaQr(this.scanResult);
+        console.log(this.scanResult);
+      }
   }
 
-  lectorPdf(){
-    this.pdf.escannerPdf417();
+  async startScan2(){
+    
+    const modal = await this.modalController.create({
+      component: BarcodeScanningModalComponent,
+      cssClass : 'barcode-scanning-modal',
+      showBackdrop: false,
+      componentProps: { 
+        formats : [],
+        LensFacing: LensFacing.Back
+       }
+      });
+    
+      await modal.present();
+  
+      const {data} = await modal.onWillDismiss();
+      if(data){
+        this.scanResult = data?.barcode?.displayValue;
+        this.entradaService.salidaQr(this.scanResult);
+        console.log(this.scanResult);
+      }
   }
 
-  salidaPersona(){
-    this.entradaService.salidaQr();
-  }
+/*   lectorPdf(){
+    this.pdf.escannerPdf417(this.scanResult);
+  } */
+
+  
 
   
   

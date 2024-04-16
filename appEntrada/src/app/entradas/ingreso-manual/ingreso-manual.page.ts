@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
-import { BrowserQRCodeReader,BrowserPDF417Reader, Result, VideoInputDevice } from '@zxing/library';
 import { Router } from '@angular/router';
 import { ServicioFechaHoraService } from 'src/app/fechaHoraService/servicio-fecha-hora.service';
 import { Storage } from '@ionic/storage-angular';
@@ -21,7 +20,7 @@ export class IngresoManualPage implements OnInit {
   Tipo : any;
   alertButtons = ['Aceptar'];
   entrada : boolean = true;
-
+  scanResult : any;
   personas:any = [];
   codigo: any;
   fechaEntrada: any;

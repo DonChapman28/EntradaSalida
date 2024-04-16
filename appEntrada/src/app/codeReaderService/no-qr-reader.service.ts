@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
-import { BrowserQRCodeReader, Result, VideoInputDevice } from '@zxing/library';
+
 import { Router } from '@angular/router';
 import { ServicioFechaHoraService } from '../fechaHoraService/servicio-fecha-hora.service';
 import { Storage } from '@ionic/storage-angular';

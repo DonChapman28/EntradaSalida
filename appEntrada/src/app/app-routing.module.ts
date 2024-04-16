@@ -12,10 +12,6 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'entrada/:tipo',
-    loadChildren: () => import('./entrada/entrada.module').then( m => m.EntradaPageModule)
-  },
-  {
     path: 'registro',
     loadChildren: () => import('./registro/registro.module').then( m => m.RegistroPageModule)
   },

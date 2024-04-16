@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
-import { BrowserPDF417Reader, Result, VideoInputDevice } from '@zxing/library';
 import { Router } from '@angular/router';
 import { ServicioFechaHoraService } from '../fechaHoraService/servicio-fecha-hora.service';
 import { Storage } from '@ionic/storage-angular';
@@ -18,8 +17,6 @@ import { AlertService } from '../alertaService/alert.service';
 export class PdfReaderService {
 
   alertButtons = ['Aceptar'];
-  private codeReader: BrowserPDF417Reader;
-  private selectedDevice: VideoInputDevice | null;
   private scanning: boolean = false;
   private mediaStream: MediaStream | null = null;
   private continueScanning: boolean = true;
@@ -38,12 +35,11 @@ export class PdfReaderService {
     private api:RegistroApiService,
     private datos: DatosServiceService,
     private alerta: AlertService
-    ) { this.codeReader = new BrowserPDF417Reader();
-    this.selectedDevice = null;}
+    ) { }
 
     
 
-    async escannerPdf417(){
+    /* async escannerPdf417(){
       try {
         const constraints = { video: { facingMode: 'environment' } };
         const stream = await navigator.mediaDevices.getUserMedia({
@@ -101,7 +97,7 @@ export class PdfReaderService {
       } catch (error) {
         console.error('Error al iniciar la cámara:', error);
       }
-    }
+    } */
 
   }
 

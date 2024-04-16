@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
-import { BrowserQRCodeReader, Result, VideoInputDevice } from '@zxing/library';
 import { Router } from '@angular/router';
 import { ServicioFechaHoraService } from '../fechaHoraService/servicio-fecha-hora.service';
 import { Storage } from '@ionic/storage-angular';
@@ -16,8 +15,6 @@ providedIn: 'root'
 export class entradaService {
 
 alertButtons = ['Aceptar'];
-private codeReader: BrowserQRCodeReader;
-private selectedDevice: VideoInputDevice | null;
 private scanning: boolean = true;
 private mediaStream: MediaStream | null = null;
 private continueScanning: boolean = true;
@@ -37,34 +34,13 @@ private storage: StorageService,
 private api:RegistroApiService,
 private alert : AlertService,
 private dato : DatosServiceService
-) { this.codeReader = new BrowserQRCodeReader();
-this.selectedDevice = null;}
+) { }
 
-async entradaQr(){
+entradaQr(code: any){
 this.fechaEntrada = this.fechaHora.getFechaHora();
 this.fechaRegistro = this.fechaHora.getFechaHora();
 
-try {
-
-const stream = await navigator.mediaDevices.getUserMedia({
-    audio: false,
-    video: {
-      width: { min: 640, ideal: 1920 },
-      height: { min: 400, ideal: 1080 },
-      aspectRatio: { ideal: 0.5625 },
-      facingMode: 'environment' 
-    }
-  });
-if (stream) {
-// Almacenamos el stream en la propiedad mediaStream
-this.mediaStream = stream;
-const codeReader = new BrowserQRCodeReader();
-const videoInputDevices: VideoInputDevice[] = await codeReader.getVideoInputDevices();
-
-if (videoInputDevices && videoInputDevices.length > 0) {
-const selectedDevice: VideoInputDevice = videoInputDevices[0];
-codeReader.decodeFromInputVideoDevice(selectedDevice.deviceId).then((result: Result) => {
-this.codigo = result.getText();
+this.codigo = code;
 console.log(this.codigo);
 var url = this.codigo;
 var regex = /RUN=(\d+-[0-9Kk])/;
@@ -89,46 +65,13 @@ this.alert.alertaEntrada();
 console.log("Número de RUT (o RUN) no encontrado en la URL.");
 this.alert.errorCarnet();
 }
-});
+};
 
-const video = document.getElementById('video') as HTMLVideoElement;
-video.srcObject = stream;
-video.play();
-console.log('funciona');
-} else {
-console.error('No se encontraron dispositivos de video.');
-}
-} else {
-console.error('No se pudo obtener acceso a la cámara.');
-}
-} catch (error) {
-console.error('Error al iniciar la cámara:', error);
-}
-}
 //salir
-async salidaQr(){
+salidaQr(code: any){
 this.fechaSalida = this.fechaHora.getFechaHora();
-try {
-const constraints = { video: { facingMode: 'environment' } };
-const stream = await navigator.mediaDevices.getUserMedia({
-    audio: false,
-    video: {
-        width: { min: 640, ideal: 1920 },
-        height: { min: 400, ideal: 1080 },
-        aspectRatio: { ideal: 0.5625 },
-        facingMode: 'environment' 
-      }
-  });;
-if (stream) {
-this.mediaStream = stream;
-const codeReader = new BrowserQRCodeReader();
-const videoInputDevices: VideoInputDevice[] = await codeReader.getVideoInputDevices();
 
-if (videoInputDevices && videoInputDevices.length > 0) {
-const selectedDevice: VideoInputDevice = videoInputDevices[0];
-
-codeReader.decodeFromInputVideoDevice(selectedDevice.deviceId).then((result: Result) => {
-this.codigo = result.getText();
+this.codigo = code;
 var url = this.codigo;      
 var regex = /RUN=(\d+-[0-9Kk])/;      
 var match = url.match(regex);
@@ -141,29 +84,7 @@ this.storage.setRegistro(this.codigo,this.fechaSalida);
 console.log('enviado');                
 }
 else console.log("Número de RUT (o RUN) no encontrado en la URL.");
-});
+};
 
-const video = document.getElementById('video') as HTMLVideoElement;
-video.srcObject = stream;
-video.play();
-console.log('funciona');
-} else {
-console.error('No se encontraron dispositivos de video.');
-}
-} else {
-console.error('No se pudo obtener acceso a la cámara.');
-}
-} catch (error) {
-console.error('Error al iniciar la cámara:', error);
-}
-}
-
-private detenerCamara() {
-// Detener la cámara y liberar recursos
-if (this.mediaStream) {
-this.mediaStream.getTracks().forEach(track => track.stop());
-this.mediaStream = null;
-}
-}
 }
 

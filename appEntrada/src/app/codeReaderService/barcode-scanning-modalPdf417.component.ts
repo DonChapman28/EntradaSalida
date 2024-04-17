@@ -58,8 +58,8 @@ import { ModalController } from '@ionic/angular';
         top: 50%;
         transform: translate(-50%, -50%);
         border-radius: 16px;
-        width: 500px; /* Ancho ajustado para hacerlo más grande */
-        height: 300px; /* Altura ajustada para mantener la proporción */
+        width: 350px; /* Ancho ajustado para hacerlo más grande */
+        height: 350px; /* Altura ajustada para mantener la proporción */
         border: 6px solid white;
         box-shadow: 0 0 0 4000px rgba(0, 0, 0, 0.3);
       }
@@ -92,7 +92,7 @@ export class BarcodeScanningModalComponent417
 
   public ngAfterViewInit(): void {
     setTimeout(() => {
-      this.startScan417();
+      this.startScan();
     }, 250);
   }
 
@@ -108,13 +108,14 @@ export class BarcodeScanningModalComponent417
     await BarcodeScanner.toggleTorch();
   }
 
-  private async startScan417(): Promise<void> {
+  private async startScan(): Promise<void> {
     // Hide everything behind the modal (see `src/theme/variables.scss`)
     document.querySelector('body')?.classList.add('barcode-scanning-active');
 
     const options: StartScanOptions = {
       formats: this.formats,
       lensFacing: this.lensFacing,
+      
     };
 
     const squareElementBoundingClientRect =

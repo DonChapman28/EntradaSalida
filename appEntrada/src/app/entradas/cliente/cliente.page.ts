@@ -11,7 +11,7 @@ import { DatosServiceService } from 'src/app/codeReaderService/datos-service.ser
 import { PdfReaderService } from 'src/app/codeReaderService/pdf-reader.service';
 import { BarcodeScanningModalComponent } from 'src/app/codeReaderService/barcode-scanning-modal.component';
 import { BarcodeScanningModalComponent417 } from 'src/app/codeReaderService/barcode-scanning-modalPdf417.component';
-import { LensFacing,BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
+import { LensFacing,BarcodeScanner, BarcodeFormat } from '@capacitor-mlkit/barcode-scanning';
 @Component({
   selector: 'app-cliente',
   templateUrl: './cliente.page.html',
@@ -22,6 +22,7 @@ export class ClientePage implements OnInit {
   alertButtons = ['Aceptar'];
   entrada : boolean = true;
   scanResult: any;
+  pdf417: any;
   personas:any = [];
   codigo: any;
   fechaEntrada: any;
@@ -111,7 +112,7 @@ export class ClientePage implements OnInit {
       cssClass : 'barcode-scanning-modal',
       showBackdrop: false,
       componentProps: { 
-        formats : ['PDF_417'],
+        formats : [] ,
         LensFacing: LensFacing.Back
        }
       });
@@ -120,9 +121,9 @@ export class ClientePage implements OnInit {
   
       const {data} = await modal.onWillDismiss();
       if(data){
-        this.scanResult = data?.barcode?.displayValue;
-        this.pdf.escannerPdf417(this.scanResult);
-        console.log(this.scanResult);
+        this.pdf417 = data?.barcode?.displayValue;
+        this.pdf.escannerPdf417(this.pdf417);
+        console.log(this.pdf417);
       }
   }
 /*   lectorPdf(){
